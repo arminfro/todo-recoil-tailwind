@@ -4,6 +4,10 @@ import './index.css';
 import App from './components/App';
 // import reportWebVitals from './reportWebVitals';
 
+if (process.env.NODE_ENV === 'development') {
+  import('./mocks/browser').then(({worker}) => worker.start())
+}
+
 ReactDOM.render(
   <StrictMode>
     <App />
