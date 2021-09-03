@@ -1,16 +1,9 @@
-import {ReactElement} from 'react';
+import { ReactElement } from 'react';
 
 interface Props {
-  error: Error
+  error: Error;
 }
 
-export default function Exception({
-  error
-}: Props): ReactElement {
-
-  return (
-    <>
-      {error.message}
-    </>
-  );
+export default function Exception({ error }: Props): ReactElement {
+  return <>{error.message}</>;
 }

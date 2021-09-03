@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 
 interface Props {
   children: ReactElement;
@@ -6,14 +6,14 @@ interface Props {
 }
 
 interface State {
-  error: null | Error
+  error: null | Error;
 }
 
 export default class ErrorBoundary extends React.Component<Props, State> {
-  state = {error: null};
+  state = { error: null };
 
   static getDerivedStateFromError(error: Error): State {
-    return {error};
+    return { error };
   }
 
   render(): ReactElement {

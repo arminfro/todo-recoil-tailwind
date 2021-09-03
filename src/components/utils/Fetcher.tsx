@@ -1,4 +1,4 @@
-import {ReactElement, Suspense} from 'react';
+import { ReactElement, Suspense, useCallback } from 'react';
 import useSWR from 'swr';
 
 import ErrorBoundary from './ErrorBoundary';
@@ -10,22 +10,22 @@ interface FetchProps<T> {
   url: string;
 }
 
-function Fetcher<T>({children, url}: FetchProps<T>): ReactElement {
-  const {data} = useSWR<T>(url);
+function Fetcher<T>({ children, url }: FetchProps<T>): ReactElement {
+  const { data } = useSWR<T>(url);
   if (data) {
-    return (
-      <>{children(data)}</>
-    );
+    return <>{children(data)}</>;
   }
-  return <>no data</>
+  return <>no data</>;
 }
 
 export default function Fetch<T>(props: FetchProps<T>): ReactElement {
+  const fallbackCallback = useCallback((e) => <Exception error={e} />, []);
+
   return (
-    <ErrorBoundary fallback={(e) => <Exception error={e} />}>
+    <ErrorBoundary fallback={fallbackCallback}>
       <Suspense fallback={<LoadingSpinner />}>
         <Fetcher<T> {...props} />
       </Suspense>
-    </ErrorBoundary >
+    </ErrorBoundary>
   );
 }

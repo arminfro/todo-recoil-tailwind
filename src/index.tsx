@@ -1,4 +1,4 @@
-import {StrictMode} from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 
 import './index.css';
@@ -10,19 +10,18 @@ const render = () => {
     <StrictMode>
       <App />
     </StrictMode>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
-}
+};
 
 if (process.env.NODE_ENV === 'development') {
-  import('./mocks/browser').then(({worker}) => {
-    worker.start()
-    render()
-  })
+  import('./mocks/browser').then(({ worker }) => {
+    worker.start();
+    render();
+  });
 } else {
-  render()
+  render();
 }
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
