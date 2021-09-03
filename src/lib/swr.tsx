@@ -5,7 +5,7 @@ import {SWRConfig} from "swr";
 export async function swrApi(path: string): Promise<AxiosPromise> {
   return axios({
     method: 'GET',
-    url: `/${path}`,
+    url: `${path}`,
   })
 }
 
