@@ -129,3 +129,7 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/vim,code,react,linux,macos,angular,windows,webstorm,atom
 
 .eslintcache
+
+## cypress
+screenshotsFolder
+videosFolder
