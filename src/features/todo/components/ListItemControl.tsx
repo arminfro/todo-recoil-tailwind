@@ -1,6 +1,8 @@
 /* eslint-disable react-perf/jsx-no-new-array-as-prop */
 /* eslint-disable react-perf/jsx-no-new-object-as-prop */
 import { Menu, Transition } from '@headlessui/react';
+import axios, { AxiosResponse } from 'axios';
+import { pick } from 'lodash';
 import {
   Dispatch,
   Fragment,
@@ -20,17 +22,22 @@ import {
   AiTwotoneSetting,
 } from 'react-icons/ai';
 import { useHover } from 'react-use';
+import { GuardedUseTodo } from '../hooks/useTodo';
 import { Todo } from '../todo.type';
 
 interface Props {
   isEdit: boolean;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
-  todo: Todo;
+  onSaveEdit: () => void;
+  todo: GuardedUseTodo;
+  onAdd: (todo: Todo) => void;
 }
 
 export default function ListItemControl({
   isEdit,
   setIsEdit,
+  onSaveEdit,
+  onAdd,
   todo,
 }: Props): ReactElement {
   const buttonClasses = (active: boolean) =>
@@ -40,13 +47,15 @@ export default function ListItemControl({
     `w-5 h-5 mr-2  ${active ? 'text-indigo-600' : 'text-indigo-400'}`;
 
   const onClickDuplicate = useCallback(() => {
-    // noop
-  }, []);
+    axios({
+      url: '/todos',
+      method: 'post',
+      data: pick(todo.get, 'title', 'description'),
+    }).then((response: AxiosResponse<Todo>) => onAdd(response.data));
+  }, [onAdd, todo.get]);
 
-  const onClickEdit = useCallback(
-    () => setIsEdit((isEdit) => !isEdit),
-    [setIsEdit],
-  );
+  const onCancelEdit = useCallback(() => setIsEdit(false), [setIsEdit]);
+  const onClickEdit = useCallback(() => setIsEdit(true), [setIsEdit]);
 
   return (
     <>
@@ -85,7 +94,7 @@ export default function ListItemControl({
                       <button
                         aria-hidden="true"
                         className={buttonClasses(active)}
-                        onClick={onClickEdit}
+                        onClick={onSaveEdit}
                       >
                         <AiOutlineSave className={iconClasses(active)} />
                         Save edit
@@ -97,7 +106,7 @@ export default function ListItemControl({
                       <button
                         aria-hidden="true"
                         className={buttonClasses(active)}
-                        onClick={onClickEdit}
+                        onClick={onCancelEdit}
                       >
                         <AiOutlineClose className={iconClasses(active)} />
                         Cancel edit
@@ -121,13 +130,16 @@ export default function ListItemControl({
                   </Menu.Item>
                   <Menu.Item key="complete">
                     {({ active }) => (
-                      <button className={buttonClasses(active)}>
-                        {todo.completed ? (
+                      <button
+                        className={buttonClasses(active)}
+                        onClick={todo.set.toggleCompletion}
+                      >
+                        {todo.get.completed ? (
                           <AiOutlineRollback className={iconClasses(active)} />
                         ) : (
                           <AiOutlineCheck className={iconClasses(active)} />
                         )}
-                        {todo.completed ? 'Uncomplete' : 'Complete'}
+                        {todo.get.completed ? 'Uncomplete' : 'Complete'}
                       </button>
                     )}
                   </Menu.Item>
@@ -144,7 +156,10 @@ export default function ListItemControl({
                   </Menu.Item>
                   <Menu.Item key="delete">
                     {({ active }) => (
-                      <button className={buttonClasses(active)}>
+                      <button
+                        className={buttonClasses(active)}
+                        onClick={todo.set.delete}
+                      >
                         <AiOutlineDelete className={iconClasses(active)} />
                         Delete
                       </button>

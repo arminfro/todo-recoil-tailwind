@@ -48,6 +48,7 @@ export default function Edit({
     onInputChange && onInputChange(input);
   }, [input, onInputChange]);
 
+  // height adjustment on textarea needed
   useEffect(() => {
     const t = autoExpandRef.current;
     if (t && !t.style.height) {

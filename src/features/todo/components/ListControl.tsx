@@ -7,15 +7,18 @@ import {
   AiOutlineFolderOpen,
   AiOutlinePlusCircle,
 } from 'react-icons/ai';
+import { Todo } from '../todo.type';
 import Create from './Create';
 
 interface Props {
   onReset: () => void;
   onComplete: () => void;
   onUncomplete: () => void;
+  onAdd: (todo: Todo) => void;
 }
 
 export default function ListControl({
+  onAdd,
   onReset,
   onComplete,
   onUncomplete,
@@ -91,7 +94,7 @@ export default function ListControl({
             </Menu.Items>
           </Transition>
         </Menu>
-        <Create isOpen={isOpen} setIsOpen={setIsOpen} />
+        <Create onAdd={onAdd} isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>
     </>
   );

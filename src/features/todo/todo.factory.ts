@@ -1,5 +1,5 @@
 import * as Faker from 'faker';
-import { Todo } from './types/todo';
+import { Todo } from './todo.type';
 
 export function todoFactory(id: number): Todo {
   return {

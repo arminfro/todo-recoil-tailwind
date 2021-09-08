@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { RecoilRoot } from 'recoil';
-import { Todo } from 'src/features/todo/types/todo';
+import { Todo } from 'src/features/todo/todo.type';
 import { SWRProvider } from 'src/lib/swr';
 import Fetch from './utils/Fetcher';
 

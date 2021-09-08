@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import {
   Dispatch,
   FormEvent,
@@ -8,14 +8,20 @@ import {
   useState,
 } from 'react';
 import Modal from 'src/components/containers/Modal';
+import { Todo } from '../todo.type';
 import Edit from './Edit';
 
 interface Props {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  onAdd: (todo: Todo) => void;
 }
 
-export default function Create({ isOpen, setIsOpen }: Props): ReactElement {
+export default function Create({
+  onAdd,
+  isOpen,
+  setIsOpen,
+}: Props): ReactElement {
   const [todo, setTodo] = useState({ title: '', description: '' });
 
   const onFinish = useCallback(() => {
@@ -29,9 +35,12 @@ export default function Create({ isOpen, setIsOpen }: Props): ReactElement {
         method: 'post',
         data: todo,
         url: '/todos',
-      }).then(onFinish);
+      }).then((resp: AxiosResponse<Todo>) => {
+        onAdd(resp.data);
+        onFinish();
+      });
     },
-    [todo, onFinish],
+    [todo, onFinish, onAdd],
   );
 
   const commonClasses = 'block p-2 w-72';
