@@ -3,6 +3,7 @@ import { ReactElement, useCallback, useRef, useState } from 'react';
 import { useHover } from 'react-use';
 import { GuardedUseTodo, useTodo } from '../hooks/useTodo';
 import { useTodos } from '../hooks/useTodos';
+import { todoApi } from '../todo.api';
 import { Todo } from '../todo.type';
 import Edit, { ControlledFieldProps } from './Edit';
 import ListItemControl from './ListItemControl';
@@ -34,7 +35,6 @@ function ListItem(props: Props): ReactElement {
     description: todo.get.description,
   });
   const [isEdit, setIsEdit] = useState(props.isEdit || false);
-  const commonClasses = 'w-10/12 pl-1 m-1';
 
   const onTitleChange = useCallback((input) => {
     setEditValue((todo) => ({ ...todo, title: input }));
@@ -45,16 +45,14 @@ function ListItem(props: Props): ReactElement {
   }, []);
 
   const onSaveEdit = useCallback((): void => {
-    const data = { ...todo.get, ...editValue };
-    axios({
-      method: 'put',
-      data,
-      url: `/todos/${todo.get.id}`,
+    const newTodo = { ...todo.get, ...editValue };
+    todoApi.update(newTodo).then(() => {
+      setIsEdit(false);
+      todos.set.update(newTodo);
     });
-    console.log('data for update', data);
-    todos.set.update(data);
-    setIsEdit(false);
   }, [editValue, todo.get, todos.set]);
+
+  const commonClasses = 'w-10/12 pl-1 m-1';
 
   return useHover((hovered) => (
     <li className="relative py-4 ">

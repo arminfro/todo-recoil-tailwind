@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import Modal from 'src/components/containers/Modal';
+import { todoApi } from '../todo.api';
 import { Todo } from '../todo.type';
 import Edit from './Edit';
 
@@ -31,11 +32,7 @@ export default function Create({
   const onSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      axios({
-        method: 'post',
-        data: todo,
-        url: '/todos',
-      }).then((resp: AxiosResponse<Todo>) => {
+      todoApi.create(todo).then((resp: AxiosResponse<Todo>) => {
         onAdd(resp.data);
         onFinish();
       });

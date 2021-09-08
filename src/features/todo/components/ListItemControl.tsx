@@ -1,7 +1,5 @@
-/* eslint-disable react-perf/jsx-no-new-array-as-prop */
-/* eslint-disable react-perf/jsx-no-new-object-as-prop */
 import { Menu, Transition } from '@headlessui/react';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { pick } from 'lodash';
 import {
   Dispatch,
@@ -9,6 +7,7 @@ import {
   ReactElement,
   SetStateAction,
   useCallback,
+  useMemo,
 } from 'react';
 import {
   AiOutlineCheck,
@@ -23,6 +22,7 @@ import {
 } from 'react-icons/ai';
 import { useHover } from 'react-use';
 import { GuardedUseTodo } from '../hooks/useTodo';
+import { todoApi } from '../todo.api';
 import { Todo } from '../todo.type';
 
 interface Props {
@@ -47,12 +47,14 @@ export default function ListItemControl({
     `w-5 h-5 mr-2  ${active ? 'text-indigo-600' : 'text-indigo-400'}`;
 
   const onClickDuplicate = useCallback(() => {
-    axios({
-      url: '/todos',
-      method: 'post',
-      data: pick(todo.get, 'title', 'description'),
-    }).then((response: AxiosResponse<Todo>) => onAdd(response.data));
+    todoApi
+      .create(pick(todo.get, 'title', 'description'))
+      .then((response: AxiosResponse<Todo>) => onAdd(response.data));
   }, [onAdd, todo.get]);
+
+  const onDelete = useCallback(() => {
+    todoApi.delete(todo.get.id).then(todo.set.delete);
+  }, [todo.set.delete, todo.get.id]);
 
   const onCancelEdit = useCallback(() => setIsEdit(false), [setIsEdit]);
   const onClickEdit = useCallback(() => setIsEdit(true), [setIsEdit]);
@@ -85,7 +87,7 @@ export default function ListItemControl({
           >
             <Menu.Items
               className="absolute top-0 w-40 mt-2 bg-white shadow-lg right-2 origin-top-right divide-y divide-blue-100 rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none"
-              style={{ zIndex: 1 }}
+              style={useMemo(() => ({ zIndex: 1 }), [])}
             >
               {isEdit ? (
                 <>
@@ -158,7 +160,7 @@ export default function ListItemControl({
                     {({ active }) => (
                       <button
                         className={buttonClasses(active)}
-                        onClick={todo.set.delete}
+                        onClick={onDelete}
                       >
                         <AiOutlineDelete className={iconClasses(active)} />
                         Delete

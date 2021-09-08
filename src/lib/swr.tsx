@@ -1,19 +1,15 @@
 import axios, { AxiosPromise } from 'axios';
 import { ReactElement } from 'react';
+import { todoApi } from 'src/features/todo/todo.api';
+import { Todo } from 'src/features/todo/todo.type';
 import { SWRConfig } from 'swr';
 
-export async function swrApi(path: string): Promise<AxiosPromise> {
-  return axios({
-    method: 'GET',
-    url: `${path}`,
-  }).then((response) => {
-    console.debug(path, response);
-    return response.data;
-  });
+export async function swrApi(path: string): Promise<Todo[]> {
+  return todoApi.getAll(path).then((response) => response.data);
 }
 
 export const swrOptions = {
-  fetcher: (url: string): Promise<AxiosPromise> => swrApi(url),
+  fetcher: (url: string): Promise<Todo[]> => swrApi(url),
   suspense: true,
 };
 

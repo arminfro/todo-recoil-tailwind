@@ -9,7 +9,6 @@ export interface UseTodo {
     toggleCompletion: () => void;
     delete: () => void;
     update: (title: string, description: string) => void;
-    duplicate: (todo: Todo) => void;
   };
 }
 
@@ -40,12 +39,6 @@ export function useTodo(id: number): UseTodo {
               todo.id === id ? { ...todo, title, description } : todo,
             ),
           );
-        },
-        duplicate: (todo: Todo) => {
-          setTodos((todos) => [
-            ...todos,
-            { ...todo, completed: false, id: Math.random() },
-          ]);
         },
       },
     }),
