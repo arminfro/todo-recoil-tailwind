@@ -9,7 +9,7 @@ Project structure is aligned with [bulletproof-react](https://github.com/alan220
 * Data fetching with `swr` and `axios`
 * Common hooks with `react-use`
 * Mocks with `msw`
-* Testing with `cypress` and `jest`
+* Testing with `cypress`
 
 `eslint-plugin-react-perf` is used to ensure identity of reference types are stable when depending on it.
 
@@ -20,7 +20,6 @@ Project structure is aligned with [bulletproof-react](https://github.com/alan220
 * re-design styling and overall appearance
   * actual design was just a hands-on `tailwindcss` and a help for doing data operations
   * issue: same css classes on textarea and input look different
-* write e2e tests with `cypress`
 * may integrate `storybook` and setup use cases for components
 
 ### Docs
@@ -32,4 +31,3 @@ Project structure is aligned with [bulletproof-react](https://github.com/alan220
 * [`cypress`](https://docs.cypress.io/api/table-of-contents)
 * [`swr`](https://swr.vercel.app/docs)
 * [`react-icons`](https://react-icons.github.io/react-icons)
-* [`jest`](https://jestjs.io/docs/api)

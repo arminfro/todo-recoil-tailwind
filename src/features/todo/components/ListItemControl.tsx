@@ -66,7 +66,10 @@ export default function ListItemControl({
           <div>
             {
               useHover((hovered) => (
-                <Menu.Button className="inline-flex justify-center p-1 m-2 text-sm font-medium text-indigo-500 active:text-white active:bg-indigo-800 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                <Menu.Button
+                  data-test-id="list-item-ctl-btn"
+                  className="inline-flex justify-center p-1 m-2 text-sm font-medium text-indigo-500 active:text-white active:bg-indigo-800 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                >
                   {hovered ? (
                     <AiTwotoneSetting size={18} />
                   ) : (

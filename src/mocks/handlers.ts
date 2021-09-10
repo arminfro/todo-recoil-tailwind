@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { rest } from 'msw';
+import { Headers } from 'headers-utils';
+import { ResponseComposition, rest, RestContext, RestRequest } from 'msw';
 import { Todo, TodoCreate } from 'src/features/todo/todo.type';
 
-let todos: Todo[] = [
+export let mockedTodos: Todo[] = [
   {
     id: 1,
     title: 'quis-sit-hic',
@@ -26,20 +26,34 @@ let todos: Todo[] = [
   },
 ];
 
+const passThroughHandler = async (
+  req: RestRequest,
+  res: ResponseComposition,
+  ctx: RestContext,
+) => {
+  const originalResponse = await ctx.fetch(req);
+  return res((res) => {
+    res.status = originalResponse.status;
+    res.body = originalResponse.body;
+    res.headers = originalResponse.headers as Headers;
+    return res;
+  });
+};
+
 export const handlers = [
   // GET list
   rest.get<undefined, Todo[]>('/todos', (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(todos));
+    return res(ctx.status(200), ctx.json(mockedTodos));
   }),
 
   // POST new
   rest.post<TodoCreate, Todo>('/todos', (req, res, ctx) => {
     const newTodo = {
       ...req.body,
-      id: todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+      id: mockedTodos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
       completed: false,
     };
-    todos = [...todos, newTodo];
+    mockedTodos = [...mockedTodos, newTodo];
 
     return res(ctx.status(201), ctx.json(newTodo));
   }),
@@ -49,13 +63,13 @@ export const handlers = [
     '/todos/:id',
     (req, res, ctx) => {
       const { id } = req.params;
-      todos = todos.map((todo) =>
+      mockedTodos = mockedTodos.map((todo) =>
         todo.id === id ? { ...todo, ...req.body } : todo,
       );
 
       return res(
         ctx.status(200),
-        ctx.json(todos.find((todo) => todo.id === id)),
+        ctx.json(mockedTodos.find((todo) => todo.id === id)),
       );
     },
   ),
@@ -65,8 +79,10 @@ export const handlers = [
     '/todos/:id',
     (req, res, ctx) => {
       const { id } = req.params;
-      todos = todos.filter((todo) => todo.id !== id);
+      mockedTodos = mockedTodos.filter((todo) => todo.id !== id);
       return res(ctx.status(200), ctx.text('OK'));
     },
   ),
+
+  rest.get('/__cypress', passThroughHandler),
 ];

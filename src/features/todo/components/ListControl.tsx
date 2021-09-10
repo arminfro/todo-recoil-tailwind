@@ -38,7 +38,10 @@ export default function ListControl({
       <div className="absolute w-1/12 right-16 top-16">
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="inline-flex justify-center p-1 m-2 text-sm font-medium text-indigo-500 active:text-white active:bg-indigo-800 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+            <Menu.Button
+              data-test-id="list-control-btn"
+              className="inline-flex justify-center p-1 m-2 text-sm font-medium text-indigo-500 active:text-white active:bg-indigo-800 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+            >
               <AiOutlineAlignRight size={24} />
             </Menu.Button>
           </div>

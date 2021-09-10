@@ -1157,7 +1157,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.1.2":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.14.6":
   version "7.15.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.15.4.tgz#fd17d16bfdf878e6dd02d19753a39fa8a8d9c84a"
   integrity sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw==
@@ -1772,10 +1772,32 @@
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
+"@testing-library/cypress@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-8.0.1.tgz#46bf2ae45ba8599a5f77b1dc2386444564cad3ce"
+  integrity sha512-JCGy8u4ia+OQQJxVqKqjqpb0i4kmHQhu5jKFVBp+v/YSICnf52fil2MWIJqO+tH9ZQXtp3aF7uKHsVipWaI0BQ==
+  dependencies:
+    "@babel/runtime" "^7.14.6"
+    "@testing-library/dom" "^8.1.0"
+
 "@testing-library/dom@^8.0.0":
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.2.0.tgz#ac46a1b9d7c81f0d341ae38fb5424b64c27d151e"
   integrity sha512-U8cTWENQPHO3QHvxBdfltJ+wC78ytMdg69ASvIdkGdQ/XRg4M9H2vvM3mHddxl+w/fM6NNqzGMwpQoh82v9VIA==
+  dependencies:
+    "@babel/code-frame" "^7.10.4"
+    "@babel/runtime" "^7.12.5"
+    "@types/aria-query" "^4.2.0"
+    aria-query "^4.2.2"
+    chalk "^4.1.0"
+    dom-accessibility-api "^0.5.6"
+    lz-string "^1.4.4"
+    pretty-format "^27.0.2"
+
+"@testing-library/dom@^8.1.0":
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-8.3.0.tgz#62eacb67f071df8dc67981f7011fe27ac2334804"
+  integrity sha512-4Eu+ExT7UhesxcRjumD7kAXv/8xhl5j2wgp2FROReXDg+Y+ArzPpU+GEN0+0m0SYlOu9hBtvNuBrzTKqyEB1Sw==
   dependencies:
     "@babel/code-frame" "^7.10.4"
     "@babel/runtime" "^7.12.5"

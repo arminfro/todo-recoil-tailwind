@@ -16,6 +16,7 @@ export default function Modal({
 }: Props): ReactElement {
   return (
     <Dialog
+      data-test-id="create-modal"
       open={isOpen}
       onClose={onClose}
       className="fixed inset-0 z-10 overflow-y-auto"
