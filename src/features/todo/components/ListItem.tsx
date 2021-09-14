@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { ReactElement, useCallback, useRef, useState } from 'react';
+import { ReactElement, useCallback, useState } from 'react';
 import { useHover } from 'react-use';
 import { GuardedUseTodo, useTodo } from '../hooks/useTodo';
 import { useTodos } from '../hooks/useTodos';
@@ -34,7 +33,7 @@ function ListItem(props: Props): ReactElement {
     title: todo.get.title,
     description: todo.get.description,
   });
-  const [isEdit, setIsEdit] = useState(props.isEdit || false);
+  const [isEdit, setIsEdit] = useState<boolean>(props.isEdit || false);
 
   const onTitleChange = useCallback((input) => {
     setEditValue((todo) => ({ ...todo, title: input }));
@@ -52,44 +51,38 @@ function ListItem(props: Props): ReactElement {
     });
   }, [editValue, todo.get, todos.set]);
 
-  const commonClasses = 'w-10/12 pl-1 m-1';
+  const commonClasses = 'w-11/12 pl-1';
 
   return useHover((hovered) => (
-    <li className="relative py-4 ">
+    <li className="relative px-1 py-3 py-4 border-b-2 border-l-2 border-gray-100 border-solid rounded-bl-lg lg:py-6 xl:py-8 md:my-4 sm:my-0 hover:border-opacity-70 group hover:border-indigo-700">
       {isEdit ? (
         <>
-          <h3>
-            <span className="text-indigo-400">&gt; </span>
+          <h2>
             <Edit value={todo.get.title} onInputChange={onTitleChange}>
               {(fieldProps: ControlledFieldProps) => (
-                <input
-                  {...fieldProps}
-                  className={`${fieldProps.className} ${commonClasses}`}
-                />
+                <input {...fieldProps} className={`${commonClasses}`} />
               )}
             </Edit>
-          </h3>
+          </h2>
           <Edit
             value={todo.get.description}
             doAutoExpand
             onInputChange={onDescriptionChange}
           >
             {(fieldProps: ControlledFieldProps) => (
-              <textarea
-                {...fieldProps}
-                className={`${fieldProps.className} ${commonClasses} ml-7`}
-              />
+              <textarea {...fieldProps} className={`${commonClasses}`} />
             )}
           </Edit>
         </>
       ) : (
         <>
-          <h3 className="underline">
-            <span className="text-indigo-400">&gt; </span>
-            <span className={`w-10/12`}>{todo.get.title}</span>
+          <h3 className="w-11/12 uppercase truncate group-hover:text-indigo-700 group-hover:underline">
+            {todo.get.title}
           </h3>
           <p
-            className={`w-10/12 ml-7  ${todo.get.completed && 'line-through'}`}
+            className={`w-11/12 text-gray-800 text-justify font-light group-hover:font-medium md:mr-10 ${
+              todo.get.completed && 'line-through'
+            }`}
           >
             {todo.get.description}
           </p>

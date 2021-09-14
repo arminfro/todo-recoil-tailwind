@@ -19,13 +19,29 @@
     @apply text-lg;
   }
 
+  input {
+    @apply m-1 focus:outline-none ring-1 ring-indigo-800 ring-opacity-20 focus:ring-opacity-100
+  }
+
+  textarea {
+    @apply m-1 focus:outline-none ring-1 ring-indigo-800 ring-opacity-20 focus:ring-opacity-100
+  }
+
   @font-face {
     font-family: Helvetica Neue;
   }
 }
 
 @layer components {
-  .btn-indigo {
-    @apply px-4 py-2 mt-2 mr-2 font-semibold text-white bg-indigo-500 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75;
+  .action-btn {
+    @apply px-4 py-2 mt-2 mr-2 font-semibold rounded-lg shadow-md
+  }
+
+  .btn-primary {
+    @apply text-white bg-indigo-700 hover:bg-indigo-900 action-btn
+  }
+
+  .btn-secondary {
+    @apply text-indigo-700 bg-white hover:text-indigo-900 action-btn
   }
 }

@@ -6,16 +6,8 @@ export default function App(): ReactElement {
   return (
     <AppContext>
       {(todos) => (
-        <div className="container w-screen px-0 py-2 bg-gray-100">
-          <div className="max-w-4xl p-6 m-8 mx-auto bg-white shadow-md md:flex-row rounded-xl space-x-4">
-            <h2 className="italic text-center text-indigo-600 underline">
-              harum-quod-distinctio
-            </h2>
-            <h5 className="text-center text-indigo-400">
-              Ratione veniam incidunt pariatur eaque fugiat
-            </h5>
-            <List todos={todos} />
-          </div>
+        <div className="container relative px-0 rounded-none shadow-xl sm:px-1 md:px-2 bg-gray-50 sm:mt-6 md:mt-10 lg:mt-14 xl:mt-20 2xl:mt-24 sm:rounded-xl">
+          <List todos={todos} />
         </div>
       )}
     </AppContext>

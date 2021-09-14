@@ -21,7 +21,7 @@ describe('List Control should', () => {
         .click()
         .get('@app')
         .get('li')
-        .should('have.length', 2);
+        .should('have.length', 1);
     });
 
     it('only uncompleted', () => {
@@ -30,7 +30,7 @@ describe('List Control should', () => {
         .click()
         .get('@app')
         .get('li')
-        .should('have.length', 1);
+        .should('have.length', 2);
     });
 
     it('all', () => {
@@ -46,7 +46,7 @@ describe('List Control should', () => {
   describe('open create modal', () => {
     beforeEach(() => {
       cy.get('@menu')
-        .contains('button', 'Add new')
+        .contains('button', 'Create')
         .click()
         .get('div[data-test-id="create-modal"]')
         .as('modal');
@@ -76,7 +76,7 @@ describe('List Control should', () => {
           .get('@list-ctl-btn')
           .click()
           .get('@menu')
-          .contains('button', 'Add new')
+          .contains('button', 'Create')
           .click()
           .get('input')
           .should('have.value', '')

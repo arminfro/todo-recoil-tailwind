@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import {
   Dispatch,
   FormEvent,
@@ -40,13 +40,13 @@ export default function Create({
     [todo, onFinish, onAdd],
   );
 
-  const commonClasses = 'block p-2 w-72';
+  const commonClasses = 'block p-2 w-11/12';
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={useCallback(() => setIsOpen(false), [setIsOpen])}
-      title="Add Todo"
+      title="Create todo"
     >
       <form onSubmit={onSubmit}>
         <Edit
@@ -56,10 +56,7 @@ export default function Create({
           }, [])}
         >
           {(fieldProps) => (
-            <input
-              {...fieldProps}
-              className={`${fieldProps.className} ${commonClasses}`}
-            />
+            <input {...fieldProps} className={`${commonClasses}`} />
           )}
         </Edit>
 
@@ -70,14 +67,11 @@ export default function Create({
           }, [])}
         >
           {(fieldProps) => (
-            <textarea
-              {...fieldProps}
-              className={`${fieldProps.className} ${commonClasses}`}
-            />
+            <textarea {...fieldProps} className={`${commonClasses}`} />
           )}
         </Edit>
-        <button className="btn-indigo">Add Todo</button>
-        <button type="button" className="btn-indigo" onClick={onFinish}>
+        <button className="btn-primary">Add Todo</button>
+        <button type="button" className="btn-secondary" onClick={onFinish}>
           Cancel
         </button>
       </form>

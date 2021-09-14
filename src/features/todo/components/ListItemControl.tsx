@@ -7,11 +7,10 @@ import {
   ReactElement,
   SetStateAction,
   useCallback,
-  useMemo,
 } from 'react';
 import {
   AiOutlineCheck,
-  AiOutlineClose,
+  AiOutlineCloseCircle,
   AiOutlineCopy,
   AiOutlineDelete,
   AiOutlineEdit,
@@ -44,7 +43,7 @@ export default function ListItemControl({
     `flex w-full pl-2 py-2 text-sm ${active && 'underline'}`;
 
   const iconClasses = (active: boolean) =>
-    `w-5 h-5 mr-2  ${active ? 'text-indigo-600' : 'text-indigo-400'}`;
+    `w-5 h-5 mr-2  ${active ? 'text-indigo-900' : 'text-indigo-700'}`;
 
   const onClickDuplicate = useCallback(() => {
     todoApi
@@ -61,14 +60,14 @@ export default function ListItemControl({
 
   return (
     <>
-      <div className="absolute w-1/12 right-9 top-4">
+      <div className="absolute top-0 right-0">
         <Menu as="div" className="relative inline-block text-left">
           <div>
             {
               useHover((hovered) => (
                 <Menu.Button
                   data-test-id="list-item-ctl-btn"
-                  className="inline-flex justify-center p-1 m-2 text-sm font-medium text-indigo-500 active:text-white active:bg-indigo-800 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                  className="inline-flex justify-center p-1 m-2 text-sm text-indigo-800 active:text-white"
                 >
                   {hovered ? (
                     <AiTwotoneSetting size={18} />
@@ -81,7 +80,7 @@ export default function ListItemControl({
           </div>
           <Transition
             as={Fragment}
-            enter="transition ease-out duration-300"
+            enter="transition ease-out duration-400"
             enterFrom="transform opacity-0 scale-95"
             enterTo="transform opacity-100 scale-100"
             leave="transition ease-in duration-75"
@@ -89,12 +88,13 @@ export default function ListItemControl({
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items
-              className="absolute top-0 w-40 mt-2 bg-white shadow-lg right-2 origin-top-right divide-y divide-blue-100 rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none"
-              style={useMemo(() => ({ zIndex: 1 }), [])}
+              // className="absolute top-0 w-40 mt-2 bg-white shadow-lg right-2 origin-top-right divide-y divide-blue-100 rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none"
+              className={`z-10 absolute top-0 mt-2 bg-white shadow-lg w-28 lg:w-32 right-2 origin-top-right rounded-md divide-y divide-indigo-200`}
             >
               {isEdit ? (
                 <>
                   <Menu.Item key="save">
+                    {/* todo, render only when changes present */}
                     {({ active }) => (
                       <button
                         aria-hidden="true"
@@ -102,7 +102,7 @@ export default function ListItemControl({
                         onClick={onSaveEdit}
                       >
                         <AiOutlineSave className={iconClasses(active)} />
-                        Save edit
+                        Save
                       </button>
                     )}
                   </Menu.Item>
@@ -113,8 +113,8 @@ export default function ListItemControl({
                         className={buttonClasses(active)}
                         onClick={onCancelEdit}
                       >
-                        <AiOutlineClose className={iconClasses(active)} />
-                        Cancel edit
+                        <AiOutlineCloseCircle className={iconClasses(active)} />
+                        Cancel
                       </button>
                     )}
                   </Menu.Item>

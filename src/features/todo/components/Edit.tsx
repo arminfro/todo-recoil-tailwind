@@ -12,7 +12,6 @@ export interface ControlledFieldProps {
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => void;
   value: string;
-  className: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: RefObject<any> | null; // fixme: RefObject<HTMLTextAreaElement | HTMLInputElement>
 }
@@ -63,8 +62,6 @@ export default function Edit({
         onChange,
         value: input,
         ref: doAutoExpand ? autoExpandRef : null,
-        className:
-          'ring-1 ring-indigo-200 focus:ring-2 active:border-solid active:border-3 active:border-indigo-400 active:border-opacity-60',
       })}
     </>
   );

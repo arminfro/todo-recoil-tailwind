@@ -17,9 +17,6 @@ Project structure is aligned with [bulletproof-react](https://github.com/alan220
 
 * `recoil` state for filter of uncompleted / completed / all
   * use case for `recoil selector`
-* re-design styling and overall appearance
-  * actual design was just a hands-on `tailwindcss` and a help for doing data operations
-  * issue: same css classes on textarea and input look different
 * may integrate `storybook` and setup use cases for components
 
 ### Docs

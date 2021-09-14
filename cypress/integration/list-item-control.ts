@@ -30,12 +30,12 @@ describe('List Item Control should', () => {
         .get('@ctl-btn')
         .click()
         .get('@menu')
-        .contains('button', 'Save edit')
+        .contains('button', 'Save')
         .click()
         .get('@app')
         .get('li')
         .first()
-        .contains('h3', '> my new title')
+        .contains('h3', 'my new title')
         .get('@app')
         .get('li')
         .first()
@@ -46,7 +46,7 @@ describe('List Item Control should', () => {
       cy.get('@ctl-btn')
         .click()
         .get('@menu')
-        .contains('button', 'Cancel edit')
+        .contains('button', 'Cancel')
         .click()
         .get('@app')
         .get('li')
@@ -64,7 +64,11 @@ describe('List Item Control should', () => {
       .get('li')
       .first()
       .get('p')
-      .should('have.css', 'text-decoration', 'line-through solid rgb(0, 0, 0)');
+      .should(
+        'have.css',
+        'text-decoration',
+        'line-through solid rgb(31, 41, 55)',
+      );
   });
 
   describe('should duplicate', () => {
@@ -96,7 +100,7 @@ describe('List Item Control should', () => {
         .get('li')
         .last()
         .get('p')
-        .should('have.css', 'text-decoration', 'none solid rgb(0, 0, 0)');
+        .should('have.css', 'text-decoration', 'none solid rgb(31, 41, 55)');
     });
   });
 
