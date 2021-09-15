@@ -1,12 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, ReactElement } from 'react';
-import {
-  AiOutlineAlignRight,
-  AiOutlineApartment,
-  AiOutlineCheck,
-  AiOutlineFolderOpen,
-  AiOutlinePlusCircle,
-} from 'react-icons/ai';
+import { AiOutlineAlignRight } from 'react-icons/ai';
+import ActionButton from './ActionButton';
 import { ListControlProps } from './Index';
 
 export default function DesktopListControl({
@@ -45,44 +40,54 @@ export default function DesktopListControl({
             <Menu.Items className="absolute top-0 z-10 w-32 mt-2 bg-white shadow-lg md:w-34 lg:w-36 xl:w-38 right-2 origin-top-right divide-y divide-indigo-200 rounded-md">
               <Menu.Item key="completed">
                 {({ active }) => (
-                  <button
-                    aria-hidden="true"
-                    className={buttonClasses(active)}
-                    onClick={showCompleted}
-                  >
-                    <AiOutlineCheck size={20} className={iconClasses(active)} />
-                    Completed
-                  </button>
+                  <div>
+                    <ActionButton
+                      actionType="completed"
+                      onClick={showCompleted}
+                      active={active}
+                      iconClasses={iconClasses(active)}
+                      buttonClasses={buttonClasses(active)}
+                    />
+                  </div>
                 )}
               </Menu.Item>
               <Menu.Item key="uncompleted">
                 {({ active }) => (
-                  <button
-                    className={buttonClasses(active)}
-                    onClick={showUncompleted}
-                  >
-                    <AiOutlineFolderOpen className={iconClasses(active)} />
-                    Uncompleted
-                  </button>
+                  <div>
+                    <ActionButton
+                      actionType="uncompleted"
+                      onClick={showUncompleted}
+                      active={active}
+                      iconClasses={iconClasses(active)}
+                      buttonClasses={buttonClasses(active)}
+                    />
+                  </div>
                 )}
               </Menu.Item>
               <Menu.Item key="all">
                 {({ active }) => (
-                  <button className={buttonClasses(active)} onClick={showAll}>
-                    <AiOutlineApartment className={iconClasses(active)} />
-                    All
-                  </button>
+                  <div>
+                    <ActionButton
+                      actionType="all"
+                      onClick={showAll}
+                      active={active}
+                      iconClasses={iconClasses(active)}
+                      buttonClasses={buttonClasses(active)}
+                    />
+                  </div>
                 )}
               </Menu.Item>
               <Menu.Item key="create-new">
                 {({ active }) => (
-                  <button
-                    className={buttonClasses(active)}
-                    onClick={onOpenModal}
-                  >
-                    <AiOutlinePlusCircle className={iconClasses(active)} />
-                    Create
-                  </button>
+                  <div>
+                    <ActionButton
+                      actionType="create"
+                      onClick={onOpenModal}
+                      active={active}
+                      iconClasses={iconClasses(active)}
+                      buttonClasses={buttonClasses(active)}
+                    />
+                  </div>
                 )}
               </Menu.Item>
             </Menu.Items>
