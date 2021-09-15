@@ -1,5 +1,6 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { useMedia } from 'react-use';
+import useIsMobile from 'src/hooks/useIsMobile';
 import { Todo, TodoCreate } from '../../todo.type';
 import Create from '../Create';
 import DesktopListControl from './DesktopListControl';
@@ -17,8 +18,6 @@ export interface ListControlProps extends Props {
 }
 
 export default function MobileSwitch(props: Props): ReactElement {
-  const isWide = useMedia('(min-width: 640px)');
-
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const onOpenModal = useCallback(
@@ -28,12 +27,12 @@ export default function MobileSwitch(props: Props): ReactElement {
 
   return (
     <>
-      {isWide ? (
-        <DesktopListControl {...props} onOpenModal={onOpenModal} />
-      ) : (
-        <div className="mt-12">
+      {useIsMobile() ? (
+        <div className="mt-14">
           <MobileListControl {...props} onOpenModal={onOpenModal} />
         </div>
+      ) : (
+        <DesktopListControl {...props} onOpenModal={onOpenModal} />
       )}
       <Create
         onAdd={props.onAdd}
