@@ -8,34 +8,30 @@ import {
   useState,
 } from 'react';
 import Modal from 'src/components/containers/Modal';
-import { todoApi } from '../todo.api';
-import { Todo } from '../todo.type';
+import { Todo, TodoCreate } from '../todo.type';
 import Edit from './Edit';
 
 interface Props {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
-  onAdd: (todo: Todo) => void;
+  showCreateModal: boolean;
+  setShowCreateModal: Dispatch<SetStateAction<boolean>>;
+  onAdd: (todo: TodoCreate) => Promise<void | Todo>;
 }
 
 export default function Create({
   onAdd,
-  isOpen,
-  setIsOpen,
+  showCreateModal,
+  setShowCreateModal,
 }: Props): ReactElement {
   const [todo, setTodo] = useState({ title: '', description: '' });
 
   const onFinish = useCallback(() => {
-    setIsOpen(false);
-  }, [setIsOpen]);
+    setShowCreateModal(false);
+  }, [setShowCreateModal]);
 
   const onSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      todoApi.create(todo).then((resp: AxiosResponse<Todo>) => {
-        onAdd(resp.data);
-        onFinish();
-      });
+      onAdd(todo).then(onFinish);
     },
     [todo, onFinish, onAdd],
   );
@@ -43,11 +39,7 @@ export default function Create({
   const commonClasses = 'block p-2 w-11/12';
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={useCallback(() => setIsOpen(false), [setIsOpen])}
-      title="Create todo"
-    >
+    <Modal isOpen={showCreateModal} onClose={onFinish} title="Create todo">
       <form onSubmit={onSubmit}>
         <Edit
           label={<label className="block mr-4">Title</label>}

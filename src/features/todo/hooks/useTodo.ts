@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
-import { useRecoilState } from 'recoil';
-import { todosState } from '../todo.atom';
 import { Todo } from '../todo.type';
+import { useTodos } from './useTodos';
 
 export interface UseTodo {
   get: Todo | undefined;
@@ -9,6 +8,7 @@ export interface UseTodo {
     toggleCompletion: () => void;
     delete: () => void;
     update: (title: string, description: string) => void;
+    duplicate: () => void;
   };
 }
 
@@ -17,32 +17,21 @@ export interface GuardedUseTodo extends UseTodo {
 }
 
 export function useTodo(id: number): UseTodo {
-  const [todos, setTodos] = useRecoilState(todosState);
+  const todos = useTodos();
 
   const useTodo = useMemo(
     () => ({
-      get: todos.find((todo) => todo.id === id),
+      get: todos.get.one(id),
       set: {
-        toggleCompletion: () => {
-          setTodos((todos) =>
-            todos.map((todo) =>
-              todo.id === id ? { ...todo, completed: !todo.completed } : todo,
-            ),
-          );
-        },
-        delete: () => {
-          setTodos((todos) => todos.filter((todo) => todo.id !== id));
-        },
+        toggleCompletion: () => todos.set.toggleCompletion(id),
+        delete: () => todos.set.delete(id),
         update: (title: string, description: string) => {
-          setTodos((todos) =>
-            todos.map((todo) =>
-              todo.id === id ? { ...todo, title, description } : todo,
-            ),
-          );
+          todos.set.update({ id, title, description });
         },
+        duplicate: () => todos.set.duplicate(id),
       },
     }),
-    [id, setTodos, todos],
+    [id, todos],
   );
 
   return useTodo;

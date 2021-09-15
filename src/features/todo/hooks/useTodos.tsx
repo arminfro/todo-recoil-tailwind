@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-import { SetterOrUpdater, useRecoilState } from 'recoil';
+import { useDebugValue, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { todoApi } from '../todo.api';
 import { todosState } from '../todo.atom';
-import { Todo } from '../todo.type';
+import { Todo, TodoCreate } from '../todo.type';
 
 interface UseTodos {
   get: {
@@ -11,18 +12,18 @@ interface UseTodos {
     uncompleted: () => Todo[];
   };
   set: {
-    generic: SetterOrUpdater<Todo[]>;
-    add: (todo: Todo) => void;
-    complete: (id: number) => void;
-    uncomplete: (id: number) => void;
+    add: (todo: TodoCreate) => Promise<void | Todo>;
+    toggleCompletion: (id: number) => void;
     delete: (id: number) => void;
-    update: (todo: Todo) => void;
-    duplicate: (id: number) => void;
+    update: (todo: Partial<Todo>) => void;
+    duplicate: (id: number) => Promise<void | Todo> | undefined;
   };
 }
 
 export function useTodos(initialValues?: Todo[]): UseTodos {
   const [todos, setTodos] = useRecoilState(todosState);
+
+  useDebugValue(todos);
 
   useEffect(() => {
     if (initialValues) {
@@ -39,28 +40,32 @@ export function useTodos(initialValues?: Todo[]): UseTodos {
       uncompleted: () => todos.filter((todo) => !todo.completed),
     },
     set: {
-      generic: setTodos,
-      add: (todo: Todo) => {
-        setTodos((todos) => [...todos, todo]);
-      },
-      complete: (id: number) => {
+      add: (todo: TodoCreate) =>
+        todoApi.create(todo).then((response) => {
+          setTodos((todos) => {
+            return [...todos, response.data];
+          });
+        }),
+      toggleCompletion: (id: number) => {
+        const currentTodo = todos.find((todo_) => todo_.id === id);
+        if (currentTodo) {
+          todoApi.update({ ...currentTodo, completed: !currentTodo.completed });
+        }
         setTodos((todos) =>
-          todos.map((todo) =>
-            todo.id === id ? { ...todo, completed: true } : todo,
-          ),
-        );
-      },
-      uncomplete: (id: number) => {
-        setTodos((todos) =>
-          todos.map((todo) =>
-            todo.id === id ? { ...todo, completed: false } : todo,
+          todos.map((todo_) =>
+            todo_.id === id ? { ...todo_, completed: !todo_.completed } : todo_,
           ),
         );
       },
       delete: (id: number) => {
+        todoApi.delete(id);
         setTodos((todos) => todos.filter((todo) => todo.id !== id));
       },
-      update: (todo: Todo) => {
+      update: (todo: Partial<Todo>) => {
+        const currentTodo = todos.find((todo_) => todo_.id === todo.id);
+        if (currentTodo) {
+          todoApi.update({ ...currentTodo, ...todo });
+        }
         setTodos((todos) =>
           todos.map((todo_) =>
             todo_.id === todo.id ? { ...todo_, ...todo } : todo_,
@@ -68,14 +73,19 @@ export function useTodos(initialValues?: Todo[]): UseTodos {
         );
       },
       duplicate: (id: number) => {
-        setTodos((todos) => {
-          const todo = todos.find((todo) => todo.id === id);
-          if (todo) {
-            return [...todos, { ...todo, id: Math.random() }];
-          } else {
-            return todos;
-          }
-        });
+        const todo = todos.find((todo) => todo.id === id);
+        if (todo) {
+          return todoApi.create(todo).then((response) =>
+            setTodos((todos) => {
+              console.log('about to duplicate', todo);
+              if (todo) {
+                return [...todos, response.data];
+              } else {
+                return todos;
+              }
+            }),
+          );
+        }
       },
     },
   };

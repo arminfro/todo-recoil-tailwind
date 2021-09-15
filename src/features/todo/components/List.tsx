@@ -1,7 +1,7 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { useTodos } from '../hooks/useTodos';
 import { Todo } from '../todo.type';
-import ListControl from './ListControl';
+import ListControl from './ListControl/Index';
 import ListItem from './ListItem';
 
 interface Props {
@@ -10,30 +10,35 @@ interface Props {
 
 export default function List(props: Props): ReactElement {
   const todos = useTodos(props.todos);
-  console.log(todos.get.all());
+  const [filter, setFilter] = useState<'completed' | 'uncompleted' | 'all'>(
+    'all',
+  );
+
+  const todoFilter = {
+    completed: todos.get.completed(),
+    uncompleted: todos.get.uncompleted(),
+    all: todos.get.all(),
+  };
+
   return (
     <>
-      <ListControl
-        onComplete={useCallback(
-          () => todos.set.generic(props.todos.filter((todo) => todo.completed)),
-          [todos.set, props.todos],
-        )}
-        onUncomplete={useCallback(
-          () =>
-            todos.set.generic(props.todos.filter((todo) => !todo.completed)),
-          [todos.set, props.todos],
-        )}
-        onReset={useCallback(
-          () => todos.set.generic(props.todos),
-          [todos.set, props.todos],
-        )}
-        onAdd={todos.set.add}
-      />
       <ul className="sm:p-1 sm:py-2 md:p-4 lg:p-8 xl:p-10 2xl:p-12">
-        {todos.get.all().map((todo) => (
-          <ListItem key={todo.id} id={todo.id} onAdd={todos.set.add} />
+        {todoFilter[filter].map((todo) => (
+          <ListItem key={todo.id} id={todo.id} />
         ))}
       </ul>
+      <ListControl
+        showCompleted={useCallback(() => {
+          setFilter('completed');
+        }, [])}
+        showUncompleted={useCallback(() => {
+          setFilter('uncompleted');
+        }, [])}
+        showAll={useCallback(() => {
+          setFilter('all');
+        }, [])}
+        onAdd={todos.set.add}
+      />
     </>
   );
 }

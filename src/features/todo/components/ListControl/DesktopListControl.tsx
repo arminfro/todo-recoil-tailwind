@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Fragment, ReactElement, useCallback, useState } from 'react';
+import { Fragment, ReactElement } from 'react';
 import {
   AiOutlineAlignRight,
   AiOutlineApartment,
@@ -7,31 +7,19 @@ import {
   AiOutlineFolderOpen,
   AiOutlinePlusCircle,
 } from 'react-icons/ai';
-import { Todo } from '../todo.type';
-import Create from './Create';
+import { ListControlProps } from './Index';
 
-interface Props {
-  onReset: () => void;
-  onComplete: () => void;
-  onUncomplete: () => void;
-  onAdd: (todo: Todo) => void;
-}
-
-export default function ListControl({
-  onAdd,
-  onReset,
-  onComplete,
-  onUncomplete,
-}: Props): ReactElement {
-  const [isOpen, setIsOpen] = useState(false);
-
+export default function DesktopListControl({
+  showAll,
+  showCompleted,
+  showUncompleted,
+  onOpenModal,
+}: ListControlProps): ReactElement {
   const buttonClasses = (active: boolean) =>
     `flex w-full pl-2 py-2 text-sm ${active && 'underline'}`;
 
   const iconClasses = (active: boolean) =>
     `w-5 h-5 mr-2  ${active ? 'text-indigo-900' : 'text-indigo-700'}`;
-
-  const onAddNew = useCallback(() => setIsOpen((isOpen) => !isOpen), []);
 
   return (
     <>
@@ -60,7 +48,7 @@ export default function ListControl({
                   <button
                     aria-hidden="true"
                     className={buttonClasses(active)}
-                    onClick={onComplete}
+                    onClick={showCompleted}
                   >
                     <AiOutlineCheck size={20} className={iconClasses(active)} />
                     Completed
@@ -71,7 +59,7 @@ export default function ListControl({
                 {({ active }) => (
                   <button
                     className={buttonClasses(active)}
-                    onClick={onUncomplete}
+                    onClick={showUncompleted}
                   >
                     <AiOutlineFolderOpen className={iconClasses(active)} />
                     Uncompleted
@@ -80,7 +68,7 @@ export default function ListControl({
               </Menu.Item>
               <Menu.Item key="all">
                 {({ active }) => (
-                  <button className={buttonClasses(active)} onClick={onReset}>
+                  <button className={buttonClasses(active)} onClick={showAll}>
                     <AiOutlineApartment className={iconClasses(active)} />
                     All
                   </button>
@@ -88,7 +76,10 @@ export default function ListControl({
               </Menu.Item>
               <Menu.Item key="create-new">
                 {({ active }) => (
-                  <button className={buttonClasses(active)} onClick={onAddNew}>
+                  <button
+                    className={buttonClasses(active)}
+                    onClick={onOpenModal}
+                  >
                     <AiOutlinePlusCircle className={iconClasses(active)} />
                     Create
                   </button>
@@ -97,7 +88,6 @@ export default function ListControl({
             </Menu.Items>
           </Transition>
         </Menu>
-        <Create onAdd={onAdd} isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>
     </>
   );

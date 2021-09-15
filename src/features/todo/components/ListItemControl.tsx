@@ -1,6 +1,4 @@
 import { Menu, Transition } from '@headlessui/react';
-import { AxiosResponse } from 'axios';
-import { pick } from 'lodash';
 import {
   Dispatch,
   Fragment,
@@ -21,22 +19,20 @@ import {
 } from 'react-icons/ai';
 import { useHover } from 'react-use';
 import { GuardedUseTodo } from '../hooks/useTodo';
-import { todoApi } from '../todo.api';
-import { Todo } from '../todo.type';
 
 interface Props {
   isEdit: boolean;
   setIsEdit: Dispatch<SetStateAction<boolean>>;
   onSaveEdit: () => void;
   todo: GuardedUseTodo;
-  onAdd: (todo: Todo) => void;
+  onDuplicate: () => void;
 }
 
 export default function ListItemControl({
   isEdit,
   setIsEdit,
   onSaveEdit,
-  onAdd,
+  onDuplicate,
   todo,
 }: Props): ReactElement {
   const buttonClasses = (active: boolean) =>
@@ -44,16 +40,6 @@ export default function ListItemControl({
 
   const iconClasses = (active: boolean) =>
     `w-5 h-5 mr-2  ${active ? 'text-indigo-900' : 'text-indigo-700'}`;
-
-  const onClickDuplicate = useCallback(() => {
-    todoApi
-      .create(pick(todo.get, 'title', 'description'))
-      .then((response: AxiosResponse<Todo>) => onAdd(response.data));
-  }, [onAdd, todo.get]);
-
-  const onDelete = useCallback(() => {
-    todoApi.delete(todo.get.id).then(todo.set.delete);
-  }, [todo.set.delete, todo.get.id]);
 
   const onCancelEdit = useCallback(() => setIsEdit(false), [setIsEdit]);
   const onClickEdit = useCallback(() => setIsEdit(true), [setIsEdit]);
@@ -88,7 +74,6 @@ export default function ListItemControl({
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items
-              // className="absolute top-0 w-40 mt-2 bg-white shadow-lg right-2 origin-top-right divide-y divide-blue-100 rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none"
               className={`z-10 absolute top-0 mt-2 bg-white shadow-lg w-28 lg:w-32 right-2 origin-top-right rounded-md divide-y divide-indigo-200`}
             >
               {isEdit ? (
@@ -152,7 +137,7 @@ export default function ListItemControl({
                     {({ active }) => (
                       <button
                         className={buttonClasses(active)}
-                        onClick={onClickDuplicate}
+                        onClick={onDuplicate}
                       >
                         <AiOutlineCopy className={iconClasses(active)} />
                         Duplicate
@@ -163,7 +148,7 @@ export default function ListItemControl({
                     {({ active }) => (
                       <button
                         className={buttonClasses(active)}
-                        onClick={onDelete}
+                        onClick={todo.set.delete}
                       >
                         <AiOutlineDelete className={iconClasses(active)} />
                         Delete

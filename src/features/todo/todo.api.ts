@@ -13,11 +13,11 @@ export const todoApi = {
       data: todo,
       url: '/todos',
     }),
-  update: (data: Todo): AxiosPromise<Todo> =>
+  update: (todo: Todo): AxiosPromise<Todo> =>
     axios({
       method: 'put',
-      data,
-      url: `/todos/${data.id}`,
+      data: todo,
+      url: `/todos/${todo.id}`,
     }),
   delete: (id: number): AxiosPromise<string> =>
     axios({

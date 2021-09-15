@@ -1,39 +1,33 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { useHover } from 'react-use';
 import { GuardedUseTodo, useTodo } from '../hooks/useTodo';
-import { useTodos } from '../hooks/useTodos';
-import { todoApi } from '../todo.api';
-import { Todo } from '../todo.type';
 import Edit, { ControlledFieldProps } from './Edit';
 import ListItemControl from './ListItemControl';
 
 interface GuardProps {
   id: number;
-  isEdit?: boolean;
-  onAdd: (todo: Todo) => void;
 }
 
-interface Props extends GuardProps {
+interface Props {
   todo: GuardedUseTodo;
 }
 
-export default function Guard(props: GuardProps): ReactElement {
-  const todo = useTodo(props.id);
+export default function Guard({ id }: GuardProps): ReactElement {
+  const todo = useTodo(id);
   if (todo && todo.get) {
-    return <ListItem {...props} todo={todo as GuardedUseTodo} />;
+    return <ListItem todo={todo as GuardedUseTodo} />;
   } else {
     return <p>not found</p>;
   }
 }
 
-function ListItem(props: Props): ReactElement {
-  const todo = props.todo;
-  const todos = useTodos();
+function ListItem({ todo }: Props): ReactElement {
   const [editValue, setEditValue] = useState({
     title: todo.get.title,
     description: todo.get.description,
   });
-  const [isEdit, setIsEdit] = useState<boolean>(props.isEdit || false);
+
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const onTitleChange = useCallback((input) => {
     setEditValue((todo) => ({ ...todo, title: input }));
@@ -44,12 +38,9 @@ function ListItem(props: Props): ReactElement {
   }, []);
 
   const onSaveEdit = useCallback((): void => {
-    const newTodo = { ...todo.get, ...editValue };
-    todoApi.update(newTodo).then(() => {
-      setIsEdit(false);
-      todos.set.update(newTodo);
-    });
-  }, [editValue, todo.get, todos.set]);
+    todo.set.update(editValue.title, editValue.description);
+    setIsEdit(false);
+  }, [editValue, todo.set]);
 
   const commonClasses = 'w-11/12 pl-1';
 
@@ -92,9 +83,9 @@ function ListItem(props: Props): ReactElement {
         <ListItemControl
           isEdit={isEdit}
           setIsEdit={setIsEdit}
-          todo={props.todo}
+          todo={todo}
           onSaveEdit={onSaveEdit}
-          onAdd={props.onAdd}
+          onDuplicate={todo.set.duplicate}
         />
       )}
     </li>

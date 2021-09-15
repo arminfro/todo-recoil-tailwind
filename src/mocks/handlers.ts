@@ -62,11 +62,10 @@ export const handlers = [
   rest.put<Todo, Todo | undefined, { id: number }>(
     '/todos/:id',
     (req, res, ctx) => {
-      const { id } = req.params;
+      const id = +req.params.id;
       mockedTodos = mockedTodos.map((todo) =>
         todo.id === id ? { ...todo, ...req.body } : todo,
       );
-
       return res(
         ctx.status(200),
         ctx.json(mockedTodos.find((todo) => todo.id === id)),
