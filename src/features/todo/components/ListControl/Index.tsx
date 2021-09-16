@@ -1,10 +1,9 @@
 import { ReactElement, useCallback, useState } from 'react';
-import { useMedia } from 'react-use';
 import useIsMobile from 'src/hooks/useIsMobile';
-import { Todo, TodoCreate } from '../../todo.type';
-import Create from '../Create';
-import DesktopListControl from './DesktopListControl';
-import MobileListControl from './MobileListControl';
+import Create from '@/features/todo/components/Create';
+import DesktopListControl from '@/features/todo/components/ListControl/DesktopListControl';
+import MobileListControl from '@/features/todo/components/ListControl/MobileListControl';
+import { Todo, TodoCreate } from '@/features/todo/todo.type';
 
 interface Props {
   showAll: () => void;

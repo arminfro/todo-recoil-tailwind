@@ -1,9 +1,9 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { useHover } from 'react-use';
-import useIsMobile from 'src/hooks/useIsMobile';
-import { GuardedUseTodo, useTodo } from '../hooks/useTodo';
-import Edit, { ControlledFieldProps } from './Edit';
-import ListItemControl from './ListItemControl';
+import Edit, { ControlledFieldProps } from '@/features/todo/components/Edit';
+import ListItemControl from '@/features/todo/components/ListItemControl';
+import { GuardedUseTodo, useTodo } from '@/features/todo/hooks/useTodo';
+import useIsMobile from '@/hooks/useIsMobile';
 
 interface GuardProps {
   id: number;

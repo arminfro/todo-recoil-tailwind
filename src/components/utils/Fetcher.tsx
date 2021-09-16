@@ -1,9 +1,8 @@
 import { ReactElement, Suspense, useCallback } from 'react';
 import useSWR from 'swr';
-
-import ErrorBoundary from './ErrorBoundary';
-import Exception from './Exception';
-import LoadingSpinner from './LoadingSpinner';
+import ErrorBoundary from '@/components/utils/ErrorBoundary';
+import Exception from '@/components/utils/Exception';
+import LoadingSpinner from '@/components/utils/LoadingSpinner';
 
 interface FetchProps<T> {
   children: (data: T) => ReactElement;

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
-import List from 'src/features/todo/components/List';
-import AppContext from './AppContext';
+import List from '@/features/todo/components/List';
+import AppContext from '@/components/AppContext';
 
 export default function App(): ReactElement {
   return (

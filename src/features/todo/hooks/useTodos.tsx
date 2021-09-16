@@ -1,8 +1,8 @@
 import { useDebugValue, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { todoApi } from '../todo.api';
-import { todosState } from '../todo.atom';
-import { Todo, TodoCreate } from '../todo.type';
+import { todoApi } from '@/features/todo/todo.api';
+import { todosState } from '@/features/todo/todo.atom';
+import { Todo, TodoCreate } from '@/features/todo/todo.type';
 
 interface UseTodos {
   get: {

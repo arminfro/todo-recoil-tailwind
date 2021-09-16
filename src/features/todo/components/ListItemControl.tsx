@@ -18,7 +18,7 @@ import {
   AiTwotoneSetting,
 } from 'react-icons/ai';
 import { useHover } from 'react-use';
-import { GuardedUseTodo } from '../hooks/useTodo';
+import { GuardedUseTodo } from '@/features/todo/hooks/useTodo';
 
 interface Props {
   isEdit: boolean;

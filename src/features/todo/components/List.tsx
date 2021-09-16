@@ -1,8 +1,8 @@
 import { ReactElement, useCallback, useState } from 'react';
-import { useTodos } from '../hooks/useTodos';
-import { Todo } from '../todo.type';
-import ListControl from './ListControl/Index';
-import ListItem from './ListItem';
+import ListControl from '@/features/todo/components/ListControl/Index';
+import ListItem from '@/features/todo/components/ListItem';
+import { useTodos } from '@/features/todo/hooks/useTodos';
+import { Todo } from '@/features/todo/todo.type';
 
 interface Props {
   todos: Todo[];

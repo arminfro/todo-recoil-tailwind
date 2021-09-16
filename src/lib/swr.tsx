@@ -1,8 +1,7 @@
-import axios, { AxiosPromise } from 'axios';
 import { ReactElement } from 'react';
-import { todoApi } from 'src/features/todo/todo.api';
-import { Todo } from 'src/features/todo/todo.type';
 import { SWRConfig } from 'swr';
+import { todoApi } from '@/features/todo/todo.api';
+import { Todo } from '@/features/todo/todo.type';
 
 export async function swrApi(path: string): Promise<Todo[]> {
   return todoApi.getAll(path).then((response) => response.data);

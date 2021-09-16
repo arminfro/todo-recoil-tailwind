@@ -1,7 +1,7 @@
+import App from '@/components/App';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import axios, { AxiosPromise, AxiosResponse } from 'axios';
 import { ReactElement, ReactNode } from 'react';
-import App from 'src/components/App';
 import { mocked } from 'ts-jest/utils';
 
 const customRender = (

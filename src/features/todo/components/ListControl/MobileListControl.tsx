@@ -1,6 +1,6 @@
+import ActionButton from '@/features/todo/components/ListControl/ActionButton';
+import { ListControlProps } from '@/features/todo/components/ListControl/Index';
 import { ReactElement } from 'react';
-import ActionButton from './ActionButton';
-import { ListControlProps } from './Index';
 
 export default function MobileListControl({
   showAll,

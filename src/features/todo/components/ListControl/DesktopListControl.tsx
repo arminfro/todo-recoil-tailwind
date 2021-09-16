@@ -1,8 +1,8 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, ReactElement } from 'react';
 import { AiOutlineAlignRight } from 'react-icons/ai';
-import ActionButton from './ActionButton';
-import { ListControlProps } from './Index';
+import ActionButton from '@/features/todo/components/ListControl/ActionButton';
+import { ListControlProps } from '@/features/todo/components/ListControl/Index';
 
 export default function DesktopListControl({
   showAll,

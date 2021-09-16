@@ -1,4 +1,6 @@
-import { AxiosResponse } from 'axios';
+import Modal from '@/components/containers/Modal';
+import Edit from '@/features/todo/components/Edit';
+import { Todo, TodoCreate } from '@/features/todo/todo.type';
 import {
   Dispatch,
   FormEvent,
@@ -7,9 +9,6 @@ import {
   useCallback,
   useState,
 } from 'react';
-import Modal from 'src/components/containers/Modal';
-import { Todo, TodoCreate } from '../todo.type';
-import Edit from './Edit';
 
 interface Props {
   showCreateModal: boolean;

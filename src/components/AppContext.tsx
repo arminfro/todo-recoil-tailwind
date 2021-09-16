@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import { RecoilRoot } from 'recoil';
-import { Todo } from 'src/features/todo/todo.type';
-import { SWRProvider } from 'src/lib/swr';
-import Fetch from './utils/Fetcher';
+import Fetch from '@/components/utils/Fetcher';
+import { Todo } from '@/features/todo/todo.type';
+import { SWRProvider } from '@/lib/swr';
 
 interface Props {
   children: (appProps: Todo[]) => ReactElement | ReactElement[];
