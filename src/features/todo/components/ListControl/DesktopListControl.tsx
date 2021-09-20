@@ -11,10 +11,16 @@ export default function DesktopListControl({
   onOpenModal,
 }: ListControlProps): ReactElement {
   const buttonClasses = (active: boolean) =>
-    `flex w-full pl-2 py-2 text-sm ${active && 'underline'}`;
+    `flex w-full pl-2 py-2 text-sm ${
+      active ? 'underline dark:text-indigo-300' : 'dark:text-indigo-200'
+    }`;
 
   const iconClasses = (active: boolean) =>
-    `w-5 h-5 mr-2  ${active ? 'text-indigo-900' : 'text-indigo-700'}`;
+    `w-5 h-5 mr-2  ${
+      active
+        ? 'text-indigo-900 dark:text-indigo-300'
+        : 'text-indigo-700 dark:text-indigo-200'
+    }`;
 
   return (
     <>
@@ -23,7 +29,7 @@ export default function DesktopListControl({
           <div>
             <Menu.Button
               data-test-id="list-control-btn"
-              className="text-indigo-900 hover:text-indigo-600"
+              className="text-indigo-900 hover:text-indigo-600 dark:text-indigo-300"
             >
               <AiOutlineAlignRight size={24} />
             </Menu.Button>
@@ -37,7 +43,7 @@ export default function DesktopListControl({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute top-0 z-10 w-32 mt-2 bg-white shadow-lg md:w-34 lg:w-36 xl:w-38 right-2 origin-top-right divide-y divide-indigo-200 rounded-md">
+            <Menu.Items className="absolute top-0 z-10 w-32 mt-2 bg-white shadow-lg dark:bg-gray-700 md:w-34 lg:w-36 xl:w-38 right-2 origin-top-right divide-y divide-indigo-200 rounded-md">
               <Menu.Item key="completed">
                 {({ active }) => (
                   <div>

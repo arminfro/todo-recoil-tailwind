@@ -45,14 +45,14 @@ function ListItem({ todo }: Props): ReactElement {
 
   const isMobile = useIsMobile();
 
-  const commonClasses = 'w-11/12 pl-1';
+  const commonClasses = 'w-11/12 pl-1 dark:bg-gray-700 dark:text-indigo-200';
 
   const hasChanges =
     editValue.title !== todo.get.title ||
     editValue.description !== todo.get.description;
 
   return useHover((hovered) => (
-    <li className="relative px-1 py-3 py-4 border-b-2 border-l-2 border-gray-100 border-solid rounded-bl-lg lg:py-6 xl:py-8 md:my-4 sm:my-0 hover:border-opacity-70 group hover:border-indigo-700">
+    <li className="relative px-1 py-3 py-4 border-b-2 border-l-2 border-gray-100 border-solid rounded-bl-lg dark:border-black dark:hover:border-indigo-200 lg:py-6 xl:py-8 md:my-4 sm:my-0 hover:border-opacity-70 group hover:border-indigo-700">
       {isEdit ? (
         <>
           <h2>
@@ -74,11 +74,11 @@ function ListItem({ todo }: Props): ReactElement {
         </>
       ) : (
         <>
-          <h3 className="w-11/12 uppercase truncate group-hover:text-indigo-700 group-hover:underline">
+          <h3 className="w-11/12 uppercase truncate group-hover:text-indigo-700 dark:group-hover:text-indigo-300 dark:text-indigo-200 group-hover:underline">
             {todo.get.title}
           </h3>
           <p
-            className={`w-11/12 text-gray-800 text-justify font-light group-hover:font-medium md:mr-10 ${
+            className={`w-11/12 dark:text-indigo-100 text-gray-800 text-justify font-light group-hover:font-medium md:mr-10 ${
               todo.get.completed && 'line-through'
             }`}
           >

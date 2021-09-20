@@ -17,6 +17,7 @@ Project structure is aligned with [bulletproof-react](https://github.com/alan220
 
 * `recoil` state for filter of uncompleted / completed / all
   * use case for `recoil selector`
+* add UI switch for theme
 * may integrate `storybook` and setup use cases for components
 
 ### Docs

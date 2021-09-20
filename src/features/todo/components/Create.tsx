@@ -35,13 +35,16 @@ export default function Create({
     [todo, onFinish, onAdd],
   );
 
-  const commonClasses = 'block p-2 w-11/12';
+  const commonClasses =
+    'block p-2 w-11/12 dark:bg-gray-700 dark:text-indigo-200';
 
   return (
     <Modal isOpen={showCreateModal} onClose={onFinish} title="Create todo">
       <form onSubmit={onSubmit}>
         <Edit
-          label={<label className="block mr-4">Title</label>}
+          label={
+            <label className="block mr-4 dark:text-indigo-200">Title</label>
+          }
           onInputChange={useCallback((input) => {
             setTodo((todo) => ({ ...todo, title: input }));
           }, [])}
@@ -52,7 +55,9 @@ export default function Create({
         </Edit>
 
         <Edit
-          label={<label className="block mr-4">Content</label>}
+          label={
+            <label className="block mr-4 dark:text-indigo-200">Content</label>
+          }
           onInputChange={useCallback((input) => {
             setTodo((todo) => ({ ...todo, description: input }));
           }, [])}

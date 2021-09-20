@@ -8,10 +8,11 @@ export default function MobileListControl({
   showUncompleted,
   onOpenModal,
 }: ListControlProps): ReactElement {
-  const buttonClasses = 'flex-1 w-full py-2 pl-2 text-sm text-sm';
-  const iconClasses = 'w-5 h-5 text-indigo-700 m-auto';
+  const buttonClasses =
+    'flex-1 w-full py-2 pl-2 text-sm text-sm dark:text-indigo-200';
+  const iconClasses = 'w-5 h-5 text-indigo-700 m-auto dark:text-indigo-200';
   return (
-    <div className="fixed bottom-0 z-10 flex w-full bg-white">
+    <div className="fixed bottom-0 z-10 flex w-full bg-white dark:bg-gray-700">
       <ActionButton
         actionType="completed"
         onClick={showCompleted}
