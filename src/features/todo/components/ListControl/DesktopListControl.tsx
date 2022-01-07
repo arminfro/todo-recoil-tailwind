@@ -16,7 +16,7 @@ export default function DesktopListControl({
     }`;
 
   const iconClasses = (active: boolean) =>
-    `w-5 h-5 mr-2  ${
+    `w-5 h-5 mr-2 ${
       active
         ? 'text-indigo-900 dark:text-indigo-300'
         : 'text-indigo-700 dark:text-indigo-200'

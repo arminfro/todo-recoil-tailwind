@@ -67,7 +67,7 @@ describe('List Item Control should', () => {
       .should(
         'have.css',
         'text-decoration',
-        'line-through solid rgb(31, 41, 55)',
+        'line-through solid rgb(224, 231, 255)',
       );
   });
 
@@ -82,15 +82,15 @@ describe('List Item Control should', () => {
         .then(($h3s) => {
           const firstTodoTitle = $h3s[0].textContent;
           const lastTodoTitle = $h3s[$h3s.length - 1].textContent;
-          async (req, res, ctx) => {
-            const originalResponse = await ctx.fetch(req);
-            return res((res) => {
-              res.status = originalResponse.status;
-              res.body = originalResponse.body;
-              res.headers = originalResponse.headers as Headers;
-              return res;
-            });
-          };
+          // async (req, res, ctx) => {
+          //   const originalResponse = await ctx.fetch(req);
+          //   return res((res) => {
+          //     res.status = originalResponse.status;
+          //     res.body = originalResponse.body;
+          //     res.headers = originalResponse.headers as Headers;
+          //     return res;
+          //   });
+          // };
           expect(firstTodoTitle === lastTodoTitle).to.be.true;
         });
     });
@@ -100,7 +100,7 @@ describe('List Item Control should', () => {
         .get('li')
         .last()
         .get('p')
-        .should('have.css', 'text-decoration', 'none solid rgb(31, 41, 55)');
+        .should('have.css', 'text-decoration', 'none solid rgb(224, 231, 255)');
     });
   });
 

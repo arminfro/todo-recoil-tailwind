@@ -11,7 +11,7 @@ describe('List Control should', () => {
   });
 
   it('have a length of four control items', () => {
-    cy.get('@menu').get('button[role="menuitem"]').should('have.length', 4);
+    cy.get('@menu').get('div[role="menuitem"]').should('have.length', 4);
   });
 
   describe('change view filter to', () => {
