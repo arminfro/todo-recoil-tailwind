@@ -1,15 +1,13 @@
-import { useDebugValue, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { filteredTodoListState, todosState } from '@/features/todo/todo.recoil';
 import { todoApi } from '@/features/todo/todo.api';
-import { todosState } from '@/features/todo/todo.atom';
 import { Todo, TodoCreate } from '@/features/todo/todo.type';
+import { useDebugValue, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 interface UseTodos {
   get: {
-    all: () => Todo[];
+    filtered: Todo[];
     one: (id: number) => Todo | undefined;
-    completed: () => Todo[];
-    uncompleted: () => Todo[];
   };
   set: {
     add: (todo: TodoCreate) => Promise<void | Todo>;
@@ -22,6 +20,7 @@ interface UseTodos {
 
 export function useTodos(initialValues?: Todo[]): UseTodos {
   const [todos, setTodos] = useRecoilState(todosState);
+  const filteredTodos = useRecoilValue(filteredTodoListState);
 
   useDebugValue(todos);
 
@@ -34,10 +33,8 @@ export function useTodos(initialValues?: Todo[]): UseTodos {
 
   return {
     get: {
-      all: () => todos,
+      filtered: filteredTodos,
       one: (id: number) => todos.find((todo) => todo.id === id),
-      completed: () => todos.filter((todo) => todo.completed),
-      uncompleted: () => todos.filter((todo) => !todo.completed),
     },
     set: {
       add: (todo: TodoCreate) =>
