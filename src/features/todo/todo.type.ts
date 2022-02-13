@@ -7,3 +7,5 @@ export interface TodoCreate {
   title: string;
   description: string;
 }
+
+export type Filter = 'completed' | 'uncompleted' | 'all';

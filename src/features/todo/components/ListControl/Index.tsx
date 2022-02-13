@@ -16,7 +16,7 @@ export interface ListControlProps extends Props {
   onOpenModal: () => void;
 }
 
-export default function MobileSwitch(props: Props): ReactElement {
+export default function ListControl(props: Props): ReactElement {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const onOpenModal = useCallback(

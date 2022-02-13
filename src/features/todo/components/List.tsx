@@ -2,7 +2,7 @@ import { ReactElement, useCallback, useState } from 'react';
 import ListControl from '@/features/todo/components/ListControl/Index';
 import ListItem from '@/features/todo/components/ListItem';
 import { useTodos } from '@/features/todo/hooks/useTodos';
-import { Todo } from '@/features/todo/todo.type';
+import { Filter, Todo } from '@/features/todo/todo.type';
 
 interface Props {
   todos: Todo[];
@@ -10,9 +10,7 @@ interface Props {
 
 export default function List(props: Props): ReactElement {
   const todos = useTodos(props.todos);
-  const [filter, setFilter] = useState<'completed' | 'uncompleted' | 'all'>(
-    'all',
-  );
+  const [filter, setFilter] = useState<Filter>('all');
 
   const todoFilter = {
     completed: todos.get.completed(),
