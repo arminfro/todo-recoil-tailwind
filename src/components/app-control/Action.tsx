@@ -6,14 +6,14 @@ import { IconType } from 'react-icons';
 
 interface Props {
   Icon: IconType;
-  IconHover: IconType;
+  IconHover?: IconType;
   name: string;
   onClick?: () => void;
 }
 
 function DesktopControlAction({ Icon, IconHover, name, onClick }: Props) {
   const buttonClasses = (active: boolean) =>
-    `flex w-full pl-2 py-2 ${
+    `flex w-full pl-2 py-2 lg:m-1 xl:m-2  ${
       active ? 'underline dark:text-indigo-300' : 'dark:text-indigo-200'
     }`;
 
@@ -33,10 +33,10 @@ function DesktopControlAction({ Icon, IconHover, name, onClick }: Props) {
             onClick={onClick}
             aria-hidden="true"
           >
-            {active ? (
-              <IconHover className={iconClasses(active)} />
-            ) : (
+            {!active || !IconHover ? (
               <Icon className={iconClasses(active)} />
+            ) : (
+              <IconHover className={iconClasses(active)} />
             )}
             {''}
             {name}

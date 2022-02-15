@@ -18,7 +18,11 @@ export default function List(props: Props): ReactElement {
           <ListItem key={todo.id} id={todo.id} />
         ))}
       </ul>
-      <ListControl onAdd={todos.set.add} />
+      <ListControl
+        onAdd={todos.set.add}
+        onClearCompleted={todos.set.clearCompleted}
+        onCompleteAll={todos.set.completeAll}
+      />
     </>
   );
 }

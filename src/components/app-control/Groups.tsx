@@ -29,7 +29,7 @@ function DesktopControlGroups({ children }: Props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute top-0 z-10 w-32 mt-2 bg-white shadow-lg dark:bg-gray-700 md:w-34 lg:w-36 xl:w-38 right-2 origin-top-right divide-y divide-indigo-200 rounded-md">
+          <Menu.Items className="absolute top-0 z-10 w-40 mt-2 bg-white shadow-lg dark:bg-gray-700 lg:w-44 xl:w-48 right-2 origin-top-right divide-y divide-indigo-200 rounded-md">
             {children}
           </Menu.Items>
         </Transition>

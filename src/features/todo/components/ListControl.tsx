@@ -17,6 +17,7 @@ import {
   AiOutlineSetting,
 } from 'react-icons/ai';
 import {
+    MdClear,
   MdDarkMode,
   MdLightbulb,
   MdLightbulbOutline,
@@ -28,13 +29,15 @@ import { todoListFilterState } from '../todo.recoil';
 
 interface Props {
   onAdd: (todo: TodoCreate) => Promise<void | Todo>;
+  onClearCompleted: () => void;
+  onCompleteAll: () => void;
 }
 
-export interface ListControlProps extends Props {
-  onOpenModal: () => void;
-}
-
-export default function ListControl({ onAdd }: Props): ReactElement {
+export default function ListControl({
+  onAdd,
+  onCompleteAll,
+  onClearCompleted,
+}: Props): ReactElement {
   const [_, setFilter] = useRecoilState(todoListFilterState);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
@@ -80,6 +83,17 @@ export default function ListControl({ onAdd }: Props): ReactElement {
             name="Add new"
             Icon={AiOutlinePlusCircle}
             IconHover={AiFillPlusCircle}
+          />
+          <Control.Action
+            onClick={onCompleteAll}
+            name="Complete all"
+            Icon={AiOutlineCheckCircle}
+            IconHover={AiFillCheckCircle}
+          />
+          <Control.Action
+            onClick={onClearCompleted}
+            name="Clear completed"
+            Icon={MdClear}
           />
         </Control.Group>
         <Control.Group Icon={AiOutlineSetting} name="Setting">

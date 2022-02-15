@@ -12,6 +12,8 @@ interface UseTodos {
   set: {
     add: (todo: TodoCreate) => Promise<void | Todo>;
     toggleCompletion: (id: number) => void;
+    completeAll: () => void;
+    clearCompleted: () => void;
     delete: (id: number) => void;
     update: (todo: Partial<Todo>) => void;
     duplicate: (id: number) => Promise<void | Todo> | undefined;
@@ -53,6 +55,14 @@ export function useTodos(initialValues?: Todo[]): UseTodos {
             todo_.id === id ? { ...todo_, completed: !todo_.completed } : todo_,
           ),
         );
+      },
+      completeAll: () => {
+        setTodos((todos) =>
+          todos.map((todo_) => ({ ...todo_, completed: true })),
+        );
+      },
+      clearCompleted: () => {
+        setTodos((todos) => todos.filter((todo) => !todo.completed));
       },
       delete: (id: number) => {
         todoApi.delete(id);
