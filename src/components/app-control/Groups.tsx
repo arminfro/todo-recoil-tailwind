@@ -1,13 +1,14 @@
-import useIsMobile from '@/hooks/useIsMobile';
-import { Menu, Transition } from '@headlessui/react';
 import { Fragment, ReactElement } from 'react';
 import { AiOutlineAlignRight } from 'react-icons/ai';
 
-interface GProp {
+import useIsMobile from '@/hooks/useIsMobile';
+import { Menu, Transition } from '@headlessui/react';
+
+interface Props {
   children: ReactElement | ReactElement[];
 }
 
-function DesktopControlGroups({ children }: GProp) {
+function DesktopControlGroups({ children }: Props) {
   return (
     <div className="absolute top-1 right-1 xl:top-4 xl:right-4 lg:top-3 lg:right-3 md:top-2 md:right-2">
       <Menu as="div" className="relative inline-block text-left">
@@ -37,11 +38,18 @@ function DesktopControlGroups({ children }: GProp) {
   );
 }
 
-export default function Groups(props: GProp): ReactElement {
+function MobileControlGroups({ children }: Props) {
+  return (
+    <div className="fixed bottom-0 z-10 flex w-full bg-white dark:bg-gray-700">
+      {children}
+    </div>
+  );
+}
+
+export default function Groups(props: Props): ReactElement {
   const isMobile = useIsMobile();
-  // todo, add mobile
   return isMobile ? (
-    <DesktopControlGroups {...props} />
+    <MobileControlGroups {...props} />
   ) : (
     <DesktopControlGroups {...props} />
   );

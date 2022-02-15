@@ -1,6 +1,7 @@
+import { ReactElement } from 'react';
+
 import useIsMobile from '@/hooks/useIsMobile';
 import { Menu } from '@headlessui/react';
-import { ReactElement } from 'react';
 
 interface ChildProps {
   className: string;
@@ -27,7 +28,7 @@ function DesktopControlAction({ children, name, onClick }: Props) {
     }`;
 
   return (
-    <Menu.Item key="completed">
+    <Menu.Item key={name}>
       {({ active }) => (
         <div>
           <button
@@ -35,7 +36,7 @@ function DesktopControlAction({ children, name, onClick }: Props) {
             onClick={onClick}
             aria-hidden="true"
           >
-            {children({ className: iconClasses(active), active: active })}
+            {children({ className: iconClasses(active), active: active })}{' '}
             {name}
           </button>
         </div>
@@ -44,11 +45,27 @@ function DesktopControlAction({ children, name, onClick }: Props) {
   );
 }
 
+function MobileControlAction({ children, name, onClick }: Props) {
+  const buttonClasses =
+    'pl-2 py-2 w-full text-center dark:text-indigo-200 border-t-2 dark:border-indigo-200';
+
+  const iconClasses = `w-5 h-5 mr-2 inline text-indigo-700 dark:text-indigo-200`;
+
+  return (
+    <Menu.Item key={name}>
+      <button className={buttonClasses} onClick={onClick} aria-hidden="true">
+        {children({ className: iconClasses, active: false })}
+        {name}
+      </button>
+    </Menu.Item>
+  );
+}
+
 export default function Action(props: Props): ReactElement {
   const isMobile = useIsMobile();
   // todo, add mobile
   return isMobile ? (
-    <DesktopControlAction {...props} />
+    <MobileControlAction {...props} />
   ) : (
     <DesktopControlAction {...props} />
   );
