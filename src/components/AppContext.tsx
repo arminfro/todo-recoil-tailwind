@@ -1,22 +1,24 @@
-import { ReactElement } from 'react';
-import { RecoilRoot } from 'recoil';
 import Fetch from '@/components/utils/Fetcher';
+import ThemeProvider from '@/context/ThemeProvider';
 import { Todo } from '@/features/todo/todo.type';
 import { SWRProvider } from '@/lib/swr';
-import useTheme from '@/hooks/useTheme';
+import { ReactElement } from 'react';
+import { RecoilRoot } from 'recoil';
 
 interface Props {
   children: (appProps: Todo[]) => ReactElement | ReactElement[];
 }
 
 export default function AppContext({ children }: Props): ReactElement {
-  useTheme();
-
   return (
     <SWRProvider>
-      <RecoilRoot>
-        <Fetch<Todo[]> url="/todos">{(todos) => <>{children(todos)}</>}</Fetch>
-      </RecoilRoot>
+      <ThemeProvider>
+        <RecoilRoot>
+          <Fetch<Todo[]> url="/todos">
+            {(todos) => <>{children(todos)}</>}
+          </Fetch>
+        </RecoilRoot>
+      </ThemeProvider>
     </SWRProvider>
   );
 }
