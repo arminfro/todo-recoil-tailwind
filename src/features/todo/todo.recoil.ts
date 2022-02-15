@@ -18,9 +18,9 @@ export const filteredTodoListState = selector({
       case 'all':
         return todos;
       case 'completed':
-        return todos.filter((todo) => !todo.completed);
-      case 'uncompleted':
         return todos.filter((todo) => todo.completed);
+      case 'uncompleted':
+        return todos.filter((todo) => !todo.completed);
     }
   },
 });

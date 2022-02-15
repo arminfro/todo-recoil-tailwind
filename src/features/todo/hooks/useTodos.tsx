@@ -7,6 +7,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 interface UseTodos {
   get: {
     filtered: Todo[];
+    all: Todo[];
     one: (id: number) => Todo | undefined;
   };
   set: {
@@ -35,6 +36,7 @@ export function useTodos(initialValues?: Todo[]): UseTodos {
 
   return {
     get: {
+      all: todos,
       filtered: filteredTodos,
       one: (id: number) => todos.find((todo) => todo.id === id),
     },

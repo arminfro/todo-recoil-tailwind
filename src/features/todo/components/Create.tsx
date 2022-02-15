@@ -11,21 +11,17 @@ import {
 } from 'react';
 
 interface Props {
-  showCreateModal: boolean;
-  setShowCreateModal: Dispatch<SetStateAction<boolean>>;
   onAdd: (todo: TodoCreate) => Promise<void | Todo>;
+  onFinish?: () => void;
+  className?: string;
 }
 
 export default function Create({
   onAdd,
-  showCreateModal,
-  setShowCreateModal,
+  onFinish,
+  className,
 }: Props): ReactElement {
   const [todo, setTodo] = useState({ title: '', description: '' });
-
-  const onFinish = useCallback(() => {
-    setShowCreateModal(false);
-  }, [setShowCreateModal]);
 
   const onSubmit = useCallback(
     (e: FormEvent) => {
@@ -39,38 +35,38 @@ export default function Create({
     'block p-2 w-11/12 dark:bg-gray-700 dark:text-indigo-200';
 
   return (
-    <Modal isOpen={showCreateModal} onClose={onFinish} title="Create todo">
-      <form onSubmit={onSubmit}>
-        <Edit
-          label={
-            <label className="block mr-4 dark:text-indigo-200">Title</label>
-          }
-          onInputChange={useCallback((input) => {
-            setTodo((todo) => ({ ...todo, title: input }));
-          }, [])}
-        >
-          {(fieldProps) => (
-            <input {...fieldProps} className={`${commonClasses}`} />
-          )}
-        </Edit>
+    <form onSubmit={onSubmit} className={className}>
+      <Edit
+        label={<label className="block mr-4 dark:text-indigo-200">Title</label>}
+        onInputChange={useCallback((input) => {
+          setTodo((todo) => ({ ...todo, title: input }));
+        }, [])}
+      >
+        {(fieldProps) => (
+          <input {...fieldProps} className={`${commonClasses}`} />
+        )}
+      </Edit>
 
-        <Edit
-          label={
-            <label className="block mr-4 dark:text-indigo-200">Content</label>
-          }
-          onInputChange={useCallback((input) => {
-            setTodo((todo) => ({ ...todo, description: input }));
-          }, [])}
-        >
-          {(fieldProps) => (
-            <textarea {...fieldProps} className={`${commonClasses}`} />
-          )}
-        </Edit>
-        <button className="btn-primary">Add Todo</button>
+      <Edit
+        label={
+          <label className="block mr-4 dark:text-indigo-200">Content</label>
+        }
+        onInputChange={useCallback((input) => {
+          setTodo((todo) => ({ ...todo, description: input }));
+        }, [])}
+      >
+        {(fieldProps) => (
+          <textarea {...fieldProps} className={`${commonClasses}`} />
+        )}
+      </Edit>
+
+      <button className="btn-primary">Add Todo</button>
+
+      {onFinish && (
         <button type="button" className="btn-secondary" onClick={onFinish}>
           Cancel
         </button>
-      </form>
-    </Modal>
+      )}
+    </form>
   );
 }

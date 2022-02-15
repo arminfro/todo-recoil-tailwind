@@ -1,6 +1,7 @@
 import Control from '@/components/app-control';
+import Modal from '@/components/containers/Modal';
 import Create from '@/features/todo/components/Create';
-import { Todo, TodoCreate } from '@/features/todo/todo.type';
+import { Filter, Todo, TodoCreate } from '@/features/todo/todo.type';
 import { nextThemeValue } from '@/hooks/useTheme';
 import useThemeProvider from '@/hooks/useThemeProvider';
 import { upperFirst } from 'lodash';
@@ -17,28 +18,28 @@ import {
   AiOutlineSetting,
 } from 'react-icons/ai';
 import {
-    MdClear,
+  MdClear,
   MdDarkMode,
   MdLightbulb,
   MdLightbulbOutline,
   MdOutlineDarkMode,
   MdWorkOutline,
 } from 'react-icons/md';
-import { useRecoilState } from 'recoil';
-import { todoListFilterState } from '../todo.recoil';
+import { SetterOrUpdater } from 'recoil';
 
 interface Props {
   onAdd: (todo: TodoCreate) => Promise<void | Todo>;
   onClearCompleted: () => void;
   onCompleteAll: () => void;
+  setFilter: SetterOrUpdater<Filter>;
 }
 
 export default function ListControl({
   onAdd,
   onCompleteAll,
   onClearCompleted,
+  setFilter,
 }: Props): ReactElement {
-  const [_, setFilter] = useRecoilState(todoListFilterState);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const onOpenModal = useCallback(
@@ -47,6 +48,10 @@ export default function ListControl({
   );
 
   const [theme, toggleTheme] = useThemeProvider();
+
+  const onFinish = useCallback(() => {
+    setShowCreateModal(false);
+  }, [setShowCreateModal]);
 
   return (
     <>
@@ -105,11 +110,9 @@ export default function ListControl({
           />
         </Control.Group>
       </Control.Groups>
-      <Create
-        onAdd={onAdd}
-        showCreateModal={showCreateModal}
-        setShowCreateModal={setShowCreateModal}
-      />
+      <Modal isOpen={showCreateModal} onClose={onFinish} title="Create todo">
+        <Create onAdd={onAdd} onFinish={onFinish} />
+      </Modal>
     </>
   );
 }
