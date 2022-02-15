@@ -2,19 +2,16 @@ import { ReactElement } from 'react';
 
 import useIsMobile from '@/hooks/useIsMobile';
 import { Menu } from '@headlessui/react';
-
-interface ChildProps {
-  className: string;
-  active: boolean;
-}
+import { IconType } from 'react-icons';
 
 interface Props {
-  children: (p: ChildProps) => ReactElement;
+  Icon: IconType;
+  IconHover: IconType;
   name: string;
   onClick?: () => void;
 }
 
-function DesktopControlAction({ children, name, onClick }: Props) {
+function DesktopControlAction({ Icon, IconHover, name, onClick }: Props) {
   const buttonClasses = (active: boolean) =>
     `flex w-full pl-2 py-2 ${
       active ? 'underline dark:text-indigo-300' : 'dark:text-indigo-200'
@@ -36,7 +33,12 @@ function DesktopControlAction({ children, name, onClick }: Props) {
             onClick={onClick}
             aria-hidden="true"
           >
-            {children({ className: iconClasses(active), active: active })}{' '}
+            {active ? (
+              <IconHover className={iconClasses(active)} />
+            ) : (
+              <Icon className={iconClasses(active)} />
+            )}
+            {''}
             {name}
           </button>
         </div>
@@ -45,16 +47,16 @@ function DesktopControlAction({ children, name, onClick }: Props) {
   );
 }
 
-function MobileControlAction({ children, name, onClick }: Props) {
+function MobileControlAction({ Icon, name, onClick }: Props) {
   const buttonClasses =
-    'pl-2 py-2 w-full text-center dark:text-indigo-200 border-t-2 dark:border-indigo-200';
+    'pl-2 py-2 w-full text-center dark:text-indigo-200 rounded-t-md border-t-2 dark:border-indigo-200';
 
   const iconClasses = `w-5 h-5 mr-2 inline text-indigo-700 dark:text-indigo-200`;
 
   return (
     <Menu.Item key={name}>
       <button className={buttonClasses} onClick={onClick} aria-hidden="true">
-        {children({ className: iconClasses, active: false })}
+        <Icon className={iconClasses} />
         {name}
       </button>
     </Menu.Item>

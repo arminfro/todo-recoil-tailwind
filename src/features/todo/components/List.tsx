@@ -1,10 +1,8 @@
-import { ReactElement, useCallback } from 'react';
-import { useRecoilState } from 'recoil';
-import ListControl from '@/features/todo/components/ListControl/Index';
+import ListControl from '@/features/todo/components/ListControl';
 import ListItem from '@/features/todo/components/ListItem';
-import { Todo } from '@/features/todo/todo.type';
 import { useTodos } from '@/features/todo/hooks/useTodos';
-import { todoListFilterState } from '@/features/todo/todo.recoil';
+import { Todo } from '@/features/todo/todo.type';
+import { ReactElement } from 'react';
 
 interface Props {
   todos: Todo[];
@@ -12,7 +10,6 @@ interface Props {
 
 export default function List(props: Props): ReactElement {
   const todos = useTodos(props.todos);
-  const [_, setFilter] = useRecoilState(todoListFilterState);
 
   return (
     <>
@@ -21,18 +18,7 @@ export default function List(props: Props): ReactElement {
           <ListItem key={todo.id} id={todo.id} />
         ))}
       </ul>
-      <ListControl
-        showCompleted={useCallback(() => {
-          setFilter('completed');
-        }, [setFilter])}
-        showUncompleted={useCallback(() => {
-          setFilter('uncompleted');
-        }, [setFilter])}
-        showAll={useCallback(() => {
-          setFilter('all');
-        }, [setFilter])}
-        onAdd={todos.set.add}
-      />
+      <ListControl onAdd={todos.set.add} />
     </>
   );
 }

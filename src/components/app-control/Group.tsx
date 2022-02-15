@@ -2,34 +2,36 @@ import { Fragment, ReactElement } from 'react';
 
 import useIsMobile from '@/hooks/useIsMobile';
 import { Menu, Transition } from '@headlessui/react';
+import { IconType } from 'react-icons';
 
 interface Props {
   children: ReactElement | ReactElement[];
+  Icon: IconType;
   name: string;
 }
 
 function DesktopControlGroup({ children, name }: Props) {
   return (
-    <section className="pl-2 py-2 text-sm dark:text-indigo-200">
+    <section className="pl-2 py-2 text-sm dark:text-indigo-200 text-indigo-700">
       <span>{name}</span>
       <div>{children}</div>
     </section>
   );
 }
 
-function MobileControlGroup({ children, name }: Props) {
+function MobileControlGroup({ children, name, Icon }: Props) {
   return (
     <>
       <Menu
         as="div"
-        className="flex-1 w-full p-2 text-lg dark:text-indigo-200 text-center border-t-2 border-l-2 border-r-2 dark:border-indigo-200"
+        className="flex-1 w-full p-2 mx-1 text-lg dark:text-indigo-200 text-center border-t-2 rounded-t-md border-l-2 border-r-2 dark:border-indigo-200"
       >
         <div>
           <Menu.Button
             data-test-id="list-control-btn"
             className="text-indigo-900 dark:text-indigo-300"
           >
-            {name}
+            <Icon className="inline" /> {name}
           </Menu.Button>
         </div>
         <Transition
