@@ -1,7 +1,7 @@
 import App from '@/components/App';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import axios, { AxiosPromise, AxiosResponse } from 'axios';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement } from 'react';
 import { mocked } from 'ts-jest/utils';
 
 const customRender = (
@@ -12,7 +12,7 @@ const customRender = (
     window.history.pushState({}, 'document.title', options.route);
   }
 
-  const providers = ({ children }: { children?: ReactNode }) => {
+  const providers = () => {
     return <App />;
   };
 
@@ -32,7 +32,7 @@ const mockAxios = (): void => {
   const axiosResponse: AxiosResponse = {
     status: 200,
     statusText: '',
-    headers: null,
+    headers: {},
     config: {},
     data: { test: 'ok' },
   };

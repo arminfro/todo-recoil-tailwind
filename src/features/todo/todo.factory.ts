@@ -1,11 +1,11 @@
-import * as Faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { Todo } from './todo.type';
 
 export function todoFactory(id: number): Todo {
   return {
     id,
-    title: Faker.lorem.slug(),
-    description: Faker.lorem.paragraph(),
-    completed: Faker.datatype.boolean(),
+    title: faker.lorem.slug(),
+    description: faker.lorem.paragraph(),
+    completed: faker.datatype.boolean(),
   };
 }

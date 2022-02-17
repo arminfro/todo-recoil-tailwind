@@ -42,24 +42,28 @@ const passThroughHandler = async (
 
 export const handlers = [
   // GET list
-  rest.get<undefined, Todo[]>('/todos', (_req, res, ctx) => {
+  rest.get<Todo[]>('/todos', (_req, res, ctx) => {
     return res(ctx.status(200), ctx.json(mockedTodos));
   }),
 
   // POST new
-  rest.post<TodoCreate, Todo>('/todos', (req, res, ctx) => {
-    const newTodo = {
-      ...req.body,
-      id: mockedTodos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
-      completed: false,
-    };
-    mockedTodos = [...mockedTodos, newTodo];
+  rest.post<TodoCreate, Record<string, never>, Todo>(
+    '/todos',
+    (req, res, ctx) => {
+      const newTodo = {
+        ...req.body,
+        id:
+          mockedTodos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+        completed: false,
+      };
+      mockedTodos = [...mockedTodos, newTodo];
 
-    return res(ctx.status(201), ctx.json(newTodo));
-  }),
+      return res(ctx.status(201), ctx.json(newTodo));
+    },
+  ),
 
   // PUT todo
-  rest.put<Todo, Todo | undefined, { id: number }>(
+  rest.put<Todo, { id: string }, Todo | undefined>(
     '/todos/:id',
     (req, res, ctx) => {
       const id = +req.params.id;
@@ -74,10 +78,10 @@ export const handlers = [
   ),
 
   // DELETE todo
-  rest.delete<undefined, string, { id: number }>(
+  rest.delete<undefined, { id: string }, string>(
     '/todos/:id',
     (req, res, ctx) => {
-      const { id } = req.params;
+      const id = +req.params.id;
       mockedTodos = mockedTodos.filter((todo) => todo.id !== id);
       return res(ctx.status(200), ctx.text('OK'));
     },

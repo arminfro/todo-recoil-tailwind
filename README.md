@@ -15,7 +15,7 @@ Project structure is aligned with [bulletproof-react](https://github.com/alan220
 
 ### Todos left
 
-- add UI switch for theme
+- update tailwindcss
 - may integrate `storybook` and setup use cases for components
 
 ### Docs
