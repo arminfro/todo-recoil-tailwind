@@ -32,6 +32,7 @@ interface Props {
   onClearCompleted: () => void;
   onCompleteAll: () => void;
   setFilter: SetterOrUpdater<Filter>;
+  hasTodos: boolean;
 }
 
 export default function ListControl({
@@ -39,6 +40,7 @@ export default function ListControl({
   onCompleteAll,
   onClearCompleted,
   setFilter,
+  hasTodos,
 }: Props): ReactElement {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
@@ -53,54 +55,59 @@ export default function ListControl({
     setShowCreateModal(false);
   }, [setShowCreateModal]);
 
+  const setFilterCB = useCallback(
+    (nextState: Filter) => () => {
+      setFilter(nextState);
+    },
+    [setFilter],
+  );
+
   return (
     <>
       <Control.Groups>
-        <Control.Group Icon={AiOutlineFilter} name="Filter">
-          <Control.Action
-            onClick={useCallback(() => {
-              setFilter('completed');
-            }, [setFilter])}
-            name="Completed"
-            Icon={AiOutlineCheckCircle}
-            IconHover={AiFillCheckCircle}
-          />
-          <Control.Action
-            onClick={useCallback(() => {
-              setFilter('uncompleted');
-            }, [setFilter])}
-            name="Uncompleted"
-            Icon={AiOutlineFolderOpen}
-            IconHover={AiFillFolderOpen}
-          />
-          <Control.Action
-            onClick={useCallback(() => {
-              setFilter('all');
-            }, [setFilter])}
-            name="All"
-            Icon={AiOutlineApartment}
-            IconHover={AiOutlineApartment}
-          />
-        </Control.Group>
-        <Control.Group Icon={MdWorkOutline} name="Action">
-          <Control.Action
-            onClick={onOpenModal}
-            name="Add new"
-            Icon={AiOutlinePlusCircle}
-            IconHover={AiFillPlusCircle}
-          />
-          <Control.Action
-            onClick={onCompleteAll}
-            name="Complete all"
-            Icon={AiOutlineCheckCircle}
-            IconHover={AiFillCheckCircle}
-          />
-          <Control.Action
-            onClick={onClearCompleted}
-            name="Clear completed"
-            Icon={MdClear}
-          />
-        </Control.Group>
+        {hasTodos && (
+          <>
+            <Control.Group Icon={AiOutlineFilter} name="Filter">
+              <Control.Action
+                onClick={setFilterCB('completed')}
+                name="Completed"
+                Icon={AiOutlineCheckCircle}
+                IconHover={AiFillCheckCircle}
+              />
+              <Control.Action
+                onClick={setFilterCB('uncompleted')}
+                name="Uncompleted"
+                Icon={AiOutlineFolderOpen}
+                IconHover={AiFillFolderOpen}
+              />
+              <Control.Action
+                onClick={setFilterCB('all')}
+                name="All"
+                Icon={AiOutlineApartment}
+                IconHover={AiOutlineApartment}
+              />
+            </Control.Group>
+            <Control.Group Icon={MdWorkOutline} name="Action">
+              <Control.Action
+                onClick={onOpenModal}
+                name="Add new"
+                Icon={AiOutlinePlusCircle}
+                IconHover={AiFillPlusCircle}
+              />
+              <Control.Action
+                onClick={onCompleteAll}
+                name="Complete all"
+                Icon={AiOutlineCheckCircle}
+                IconHover={AiFillCheckCircle}
+              />
+              <Control.Action
+                onClick={onClearCompleted}
+                name="Clear completed"
+                Icon={MdClear}
+              />
+            </Control.Group>
+          </>
+        )}
         <Control.Group Icon={AiOutlineSetting} name="Setting">
           <Control.Action
             onClick={toggleTheme}

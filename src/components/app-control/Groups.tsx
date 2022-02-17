@@ -1,11 +1,11 @@
-import { Fragment, ReactElement } from 'react';
+import { Fragment, ReactElement, ReactNode } from 'react';
 import { AiOutlineAlignRight } from 'react-icons/ai';
 
 import useIsMobile from '@/hooks/useIsMobile';
 import { Menu, Transition } from '@headlessui/react';
 
 interface Props {
-  children: ReactElement | ReactElement[];
+  children: ReactNode;
 }
 
 function DesktopControlGroups({ children }: Props) {

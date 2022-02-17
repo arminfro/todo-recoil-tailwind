@@ -1,14 +1,7 @@
-import Modal from '@/components/containers/Modal';
+import { FormEvent, ReactElement, useCallback, useState } from 'react';
+
 import Edit from '@/features/todo/components/Edit';
 import { Todo, TodoCreate } from '@/features/todo/todo.type';
-import {
-  Dispatch,
-  FormEvent,
-  ReactElement,
-  SetStateAction,
-  useCallback,
-  useState,
-} from 'react';
 
 interface Props {
   onAdd: (todo: TodoCreate) => Promise<void | Todo>;
@@ -43,7 +36,7 @@ export default function Create({
         }, [])}
       >
         {(fieldProps) => (
-          <input {...fieldProps} className={`${commonClasses}`} />
+          <input {...fieldProps} required className={`${commonClasses}`} />
         )}
       </Edit>
 
@@ -56,7 +49,7 @@ export default function Create({
         }, [])}
       >
         {(fieldProps) => (
-          <textarea {...fieldProps} className={`${commonClasses}`} />
+          <textarea {...fieldProps} required className={`${commonClasses}`} />
         )}
       </Edit>
 

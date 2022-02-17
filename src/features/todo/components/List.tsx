@@ -20,10 +20,6 @@ export default function List(props: Props): ReactElement {
   const hasTodos = todos.get.all.length > 0;
   const hasTodosWithFilter = todos.get.filtered.length > 0;
 
-  if (!hasTodos) {
-    return <Create onAdd={todos.set.add} className="p-6" />;
-  }
-
   return (
     <>
       {hasTodosWithFilter ? (
@@ -32,15 +28,18 @@ export default function List(props: Props): ReactElement {
             <ListItem key={todo.id} id={todo.id} />
           ))}
         </ul>
-      ) : (
+      ) : hasTodos ? (
         <section className="p-10 w-full text-indigo-700 dark:text-indigo-200">
           <h2>No Todos with current Filter</h2>
           <button className="btn-primary" onClick={setFilterToAll}>
             Reset Filter
           </button>
         </section>
+      ) : (
+        <Create onAdd={todos.set.add} className="p-6" />
       )}
       <ListControl
+        hasTodos={hasTodos}
         setFilter={setFilter}
         onAdd={todos.set.add}
         onClearCompleted={todos.set.clearCompleted}
