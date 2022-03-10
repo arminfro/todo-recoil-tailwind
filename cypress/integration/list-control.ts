@@ -11,7 +11,7 @@ describe('List Control should', () => {
   });
 
   it('have a length of four control items', () => {
-    cy.get('@menu').get('div[role="menuitem"]').should('have.length', 4);
+    cy.get('@menu').get('div[role="menuitem"]').should('have.length', 7);
   });
 
   describe('change view filter to', () => {
@@ -46,7 +46,7 @@ describe('List Control should', () => {
   describe('open create modal', () => {
     beforeEach(() => {
       cy.get('@menu')
-        .contains('button', 'Create')
+        .contains('button', 'Add new')
         .click()
         .get('div[data-test-id="create-modal"]')
         .as('modal');
@@ -76,7 +76,7 @@ describe('List Control should', () => {
           .get('@list-ctl-btn')
           .click()
           .get('@menu')
-          .contains('button', 'Create')
+          .contains('button', 'Add new')
           .click()
           .get('input')
           .should('have.value', '')

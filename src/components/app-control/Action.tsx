@@ -65,7 +65,6 @@ function MobileControlAction({ Icon, name, onClick }: Props) {
 
 export default function Action(props: Props): ReactElement {
   const isMobile = useIsMobile();
-  // todo, add mobile
   return isMobile ? (
     <MobileControlAction {...props} />
   ) : (
