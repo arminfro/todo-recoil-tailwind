@@ -52,7 +52,7 @@ function ListItem({ todo }: Props): ReactElement {
     editValue.description !== todo.get.description;
 
   return useHover((hovered) => (
-    <li className="relative px-1 py-3 py-4 border-b-2 border-l-2 border-gray-100 border-solid rounded-bl-lg dark:border-black dark:hover:border-indigo-200 lg:py-6 xl:py-8 md:my-4 sm:my-0 hover:border-opacity-70 group hover:border-indigo-700">
+    <li className="relative px-1 py-4 border-b-2 border-l-2 border-gray-100 border-solid rounded-bl-lg dark:border-black dark:hover:border-indigo-200 lg:py-6 xl:py-8 md:my-4 sm:my-0 hover:border-opacity-70 group hover:border-indigo-700">
       {isEdit ? (
         <>
           <h2>
