@@ -75,11 +75,11 @@ export default function ListItemControl({
           <Transition
             as={Fragment}
             enter="transition ease-out duration-400"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
             leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
           >
             <Menu.Items
               className={`z-20 absolute top-0 mt-2 bg-white dark:bg-gray-700 shadow-lg w-28 lg:w-32 right-2 origin-top-right rounded-md divide-y divide-indigo-200`}

@@ -14,11 +14,14 @@ function Fetcher<T>({ children, url }: FetchProps<T>): ReactElement {
   if (data) {
     return <>{children(data)}</>;
   }
-  return <>no data</>;
+  return <></>;
 }
 
 export default function Fetch<T>(props: FetchProps<T>): ReactElement {
-  const fallbackCallback = useCallback((e) => <Exception error={e} />, []);
+  const fallbackCallback = useCallback(
+    (e: Error) => <Exception error={e} />,
+    [],
+  );
 
   return (
     <ErrorBoundary fallback={fallbackCallback}>

@@ -2,7 +2,6 @@ import App from '@/components/App';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import axios, { AxiosPromise, AxiosResponse } from 'axios';
 import { ReactElement } from 'react';
-import { mocked } from 'ts-jest/utils';
 
 const customRender = (
   ui: ReactElement,
@@ -27,31 +26,34 @@ const matchSnapshot = (renderResult: RenderResult): void => {
   expect(baseElement).toMatchSnapshot();
 };
 
-jest.mock('axios');
 const mockAxios = (): void => {
-  const axiosResponse: AxiosResponse = {
-    status: 200,
-    statusText: '',
-    headers: {},
-    config: {},
-    data: { test: 'ok' },
-  };
-  mocked(axios).mockImplementation((url, config): AxiosPromise => {
-    console.log('url', url, 'config', config);
-    if (config) {
-      switch (config.method) {
-        case 'get':
-          if (url) {
-            return Promise.resolve({
-              ...axiosResponse,
-            });
-          }
-          break;
-      }
-    }
-    return Promise.resolve(axiosResponse);
-  });
-};
+  //
+}
+// jest.mock('axios');
+// const mockAxios = (): void => {
+//   const axiosResponse: AxiosResponse = {
+//     status: 200,
+//     statusText: '',
+//     headers: {},
+//     config: {},
+//     data: { test: 'ok' },
+//   };
+//   axios.mockImplementation((url: any, config: any): AxiosPromise => {
+//     console.log('url', url, 'config', config);
+//     if (config) {
+//       switch (config.method) {
+//         case 'get':
+//           if (url) {
+//             return Promise.resolve({
+//               ...axiosResponse,
+//             });
+//           }
+//           break;
+//       }
+//     }
+//     return Promise.resolve(axiosResponse);
+//   });
+// };
 
 // re-export everything
 export * from '@testing-library/react';

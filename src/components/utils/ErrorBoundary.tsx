@@ -12,14 +12,14 @@ interface State {
 export default class ErrorBoundary extends React.Component<Props, State> {
   state = { error: null };
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error) {
     return { error };
   }
 
-  render(): ReactElement {
+  render() {
     if (this.state.error) {
-      return this.props.fallback(this.state.error);
+      return <>{this.props.fallback(this.state.error)}</>;
     }
-    return this.props.children;
+    return <>{this.props.children}</>;
   }
 }

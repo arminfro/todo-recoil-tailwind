@@ -31,7 +31,7 @@ export default function Create({
     <form onSubmit={onSubmit} className={className}>
       <Edit
         label={<label className="block mr-4 dark:text-indigo-200">Title</label>}
-        onInputChange={useCallback((input) => {
+        onInputChange={useCallback((input: string) => {
           setTodo((todo) => ({ ...todo, title: input }));
         }, [])}
       >
@@ -44,7 +44,7 @@ export default function Create({
         label={
           <label className="block mr-4 dark:text-indigo-200">Content</label>
         }
-        onInputChange={useCallback((input) => {
+        onInputChange={useCallback((input: string) => {
           setTodo((todo) => ({ ...todo, description: input }));
         }, [])}
       >

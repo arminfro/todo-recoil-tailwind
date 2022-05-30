@@ -30,11 +30,11 @@ function ListItem({ todo }: Props): ReactElement {
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const onTitleChange = useCallback((input) => {
+  const onTitleChange = useCallback((input: string) => {
     setEditValue((todo) => ({ ...todo, title: input }));
   }, []);
 
-  const onDescriptionChange = useCallback((input) => {
+  const onDescriptionChange = useCallback((input: string) => {
     setEditValue((todo) => ({ ...todo, description: input }));
   }, []);
 

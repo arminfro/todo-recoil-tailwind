@@ -1,4 +1,3 @@
-import { Headers } from 'headers-utils';
 import { ResponseComposition, rest, RestContext, RestRequest } from 'msw';
 import { Todo, TodoCreate } from 'src/features/todo/todo.type';
 
@@ -35,7 +34,7 @@ const passThroughHandler = async (
   return res((res) => {
     res.status = originalResponse.status;
     res.body = originalResponse.body;
-    res.headers = originalResponse.headers as Headers;
+    res.headers = originalResponse.headers as any
     return res;
   });
 };
