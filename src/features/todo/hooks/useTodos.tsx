@@ -29,7 +29,6 @@ export function useTodos(initialValues?: Todo[]): UseTodos {
 
   useEffect(() => {
     if (initialValues) {
-      console.log('calling setTodos');
       setTodos(initialValues);
     }
   }, [initialValues, setTodos]);

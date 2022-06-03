@@ -10,7 +10,7 @@ describe('List Control should', () => {
       .as('menu');
   });
 
-  it('have a length of four control items', () => {
+  it('have a length of seven control items', () => {
     cy.get('@menu').get('div[role="menuitem"]').should('have.length', 7);
   });
 
