@@ -1,4 +1,5 @@
 import { initialize, mswDecorator } from 'msw-storybook-addon';
+import {handlers} from '../src/mocks/handlers'
 import '../src/index.css'
 
 export const parameters = {
@@ -12,11 +13,16 @@ export const parameters = {
   previewTabs: {
     'storybook/docs/panel': { index: -1 },
   },
+   msw: {
+      handlers: {
+      todos: handlers
+    }
+  },
 }
 
 // Initialize MSW
 initialize({
-  onUnhandledRequest: 'bypass'
+  // onUnhandledRequest: 'bypass'
 });
 
 // Provide the MSW addon decorator globally

@@ -1,4 +1,3 @@
-const path = require('path');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
@@ -6,7 +5,9 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    // "@storybook/addon-interactions",
+    // '@storybook/addon-interactions',
+    '@storybook/addon-actions',
+    '@storybook/addon-docs',
     // "@storybook/preset-create-react-app",
     {
       /**
@@ -27,16 +28,16 @@ module.exports = {
     disableTelemetry: true,
   },
   webpackFinal: async (config) => ({
-      ...config,
-      resolve: {
-        ...(config.resolve ?? {}),
-        plugins: [...(config.resolve.plugins || []), new TsconfigPathsPlugin()],
-      },
-      plugins: config.plugins.filter((plugin) => {
-        if (plugin.constructor.name === 'ESLintWebpackPlugin') {
-          return false;
-        }
-        return true;
-      }),
-    })
+    ...config,
+    resolve: {
+      ...(config.resolve ?? {}),
+      plugins: [...(config.resolve.plugins || []), new TsconfigPathsPlugin()],
+    },
+    plugins: config.plugins.filter((plugin) => {
+      if (plugin.constructor.name === 'ESLintWebpackPlugin') {
+        return false;
+      }
+      return true;
+    }),
+  }),
 };

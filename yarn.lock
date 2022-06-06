@@ -1998,7 +1998,7 @@
     lodash "^4.17.21"
     ts-dedent "^2.0.0"
 
-"@storybook/addon-docs@6.5.7":
+"@storybook/addon-docs@6.5.7", "@storybook/addon-docs@^6.5.7":
   version "6.5.7"
   resolved "https://registry.yarnpkg.com/@storybook/addon-docs/-/addon-docs-6.5.7.tgz#405e20a02053c8933aeb51b8161aa4b665e69887"
   integrity sha512-RghRpimJOJl9c/H6qvCCD0zHLETBIVWXsdYJF8GiY6iTKd+tgQYizuuoBT4f3PAMEMHVhmvWSjkkFLxKxzQLjQ==

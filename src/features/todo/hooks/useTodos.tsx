@@ -4,7 +4,7 @@ import { Todo, TodoCreate } from '@/features/todo/todo.type';
 import { useDebugValue, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-interface UseTodos {
+export interface UseTodos {
   get: {
     filtered: Todo[];
     all: Todo[];

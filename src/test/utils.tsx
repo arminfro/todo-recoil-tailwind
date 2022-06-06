@@ -1,6 +1,5 @@
 import App from '@/components/App';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
-import axios, { AxiosPromise, AxiosResponse } from 'axios';
 import { ReactElement } from 'react';
 
 const customRender = (
@@ -28,7 +27,7 @@ const matchSnapshot = (renderResult: RenderResult): void => {
 
 const mockAxios = (): void => {
   //
-}
+};
 // jest.mock('axios');
 // const mockAxios = (): void => {
 //   const axiosResponse: AxiosResponse = {
@@ -59,3 +58,4 @@ const mockAxios = (): void => {
 export * from '@testing-library/react';
 // override render method
 export { customRender as render, matchSnapshot, mockAxios };
+

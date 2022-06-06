@@ -1,18 +1,14 @@
 import ListControl from '@/features/todo/components/ListControl';
 import ListItem from '@/features/todo/components/ListItem';
 import { useTodos } from '@/features/todo/hooks/useTodos';
-import { Todo } from '@/features/todo/todo.type';
 import { ReactElement, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
+import { useTodoContext } from '../context';
 import { todoListFilterState } from '../todo.recoil';
 import Create from './Create';
 
-interface Props {
-  todos: Todo[];
-}
-
-export default function List(props: Props): ReactElement {
-  const todos = useTodos(props.todos);
+export default function List(): ReactElement {
+  const todos = useTodoContext();
 
   const [_, setFilter] = useRecoilState(todoListFilterState);
   const setFilterToAll = useCallback(() => setFilter('all'), [setFilter]);

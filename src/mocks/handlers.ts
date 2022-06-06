@@ -34,7 +34,7 @@ const passThroughHandler = async (
   return res((res) => {
     res.status = originalResponse.status;
     res.body = originalResponse.body;
-    res.headers = originalResponse.headers as any
+    res.headers = originalResponse.headers as any;
     return res;
   });
 };
