@@ -61,6 +61,7 @@ export default function ListItemControl({
               useHover((hovered) => (
                 <Menu.Button
                   data-test-id="list-item-ctl-btn"
+                  aria-label="list item control"
                   className="inline-flex justify-center p-1 m-2 text-sm text-indigo-800 dark:text-indigo-300 active:text-white"
                 >
                   {hovered ? (

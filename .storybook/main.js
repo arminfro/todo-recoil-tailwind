@@ -10,6 +10,7 @@ module.exports = {
     '@storybook/addon-docs',
     'storybook-dark-mode',
     '@storybook/addon-a11y',
+    '@storybook/addon-storysource',
     // "@storybook/preset-create-react-app",
     {
       /**

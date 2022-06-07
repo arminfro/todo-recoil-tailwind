@@ -15,6 +15,7 @@ function DesktopControlGroups({ children }: Props) {
         <div>
           <Menu.Button
             data-test-id="list-control-btn"
+            aria-label="list control"
             className="text-indigo-900 hover:text-indigo-600 dark:text-indigo-300"
           >
             <AiOutlineAlignRight size={24} />
