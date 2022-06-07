@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStory, Story } from '@storybook/react';
 import ListItem from '../../features/todo/components/ListItem';
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   decorators: [
     (Story: Story) => (

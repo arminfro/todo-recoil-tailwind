@@ -2,7 +2,6 @@ import Modal from '@/components/containers/Modal';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { useCallback, useState } from 'react';
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   component: Modal,
 } as ComponentMeta<typeof Modal>;
