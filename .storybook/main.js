@@ -8,6 +8,7 @@ module.exports = {
     // '@storybook/addon-interactions',
     '@storybook/addon-actions',
     '@storybook/addon-docs',
+    'storybook-dark-mode',
     // "@storybook/preset-create-react-app",
     {
       /**
