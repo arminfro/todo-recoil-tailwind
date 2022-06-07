@@ -7,6 +7,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-perf/recommended',
+    'plugin:jsx-a11y/recommended',
   ],
   parserOptions: {
     ecmaVersion: 2018,
@@ -25,7 +26,7 @@ module.exports = {
       version: 'detect',
     },
   },
-  plugins: ['react', '@typescript-eslint', 'react-perf'],
+  plugins: ['react', '@typescript-eslint', 'react-perf', 'jsx-a11y'],
   rules: {
     // https://github.com/typescript-eslint/typescript-eslint/issues/363
     '@typescript-eslint/no-unused-vars': 'off',

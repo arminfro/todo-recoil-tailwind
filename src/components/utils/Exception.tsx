@@ -5,5 +5,5 @@ interface Props {
 }
 
 export default function Exception({ error }: Props): ReactElement {
-  return <>{error.message}</>;
+  return <span className="dark:text-indigo-200">{error.message}</span>;
 }

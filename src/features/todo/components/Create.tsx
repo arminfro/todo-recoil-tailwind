@@ -30,26 +30,45 @@ export default function Create({
   return (
     <form onSubmit={onSubmit} className={className}>
       <Edit
-        label={<label className="block mr-4 dark:text-indigo-200">Title</label>}
+        label={
+          <label htmlFor="title" className="block mr-4 dark:text-indigo-200">
+            Title
+          </label>
+        }
         onInputChange={useCallback((input: string) => {
           setTodo((todo) => ({ ...todo, title: input }));
         }, [])}
       >
         {(fieldProps) => (
-          <input {...fieldProps} required className={`${commonClasses}`} />
+          <input
+            {...fieldProps}
+            required
+            className={`${commonClasses}`}
+            id="title"
+          />
         )}
       </Edit>
 
       <Edit
         label={
-          <label className="block mr-4 dark:text-indigo-200">Content</label>
+          <label
+            htmlFor="description"
+            className="block mr-4 dark:text-indigo-200"
+          >
+            Content
+          </label>
         }
         onInputChange={useCallback((input: string) => {
           setTodo((todo) => ({ ...todo, description: input }));
         }, [])}
       >
         {(fieldProps) => (
-          <textarea {...fieldProps} required className={`${commonClasses}`} />
+          <textarea
+            {...fieldProps}
+            required
+            className={`${commonClasses}`}
+            id="description"
+          />
         )}
       </Edit>
 
