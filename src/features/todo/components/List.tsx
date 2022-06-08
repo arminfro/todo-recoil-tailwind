@@ -1,3 +1,5 @@
+import List from '@/components/containers/List';
+import Section from '@/components/containers/Section';
 import ListControl from '@/features/todo/components/ListControl';
 import ListItem from '@/features/todo/components/ListItem';
 import { ReactElement, useCallback } from 'react';
@@ -6,7 +8,7 @@ import { useTodoContext } from '../context';
 import { todoListFilterState } from '../todo.recoil';
 import Create from './Create';
 
-export default function List(): ReactElement {
+export default function TodoList(): ReactElement {
   const todos = useTodoContext();
 
   const [_, setFilter] = useRecoilState(todoListFilterState);
@@ -18,18 +20,18 @@ export default function List(): ReactElement {
   return (
     <>
       {hasTodosWithFilter ? (
-        <ul className="sm:p-1 sm:py-2 md:p-4 lg:p-8 xl:p-10 2xl:p-12">
+        <List.Container>
           {todos.get.filtered.map((todo) => (
             <ListItem key={todo.id} id={todo.id} />
           ))}
-        </ul>
+        </List.Container>
       ) : hasTodos ? (
-        <section className="p-10 w-full text-indigo-700 dark:text-indigo-200">
+        <Section>
           <h2>No Todos with current Filter</h2>
           <button className="btn-primary" onClick={setFilterToAll}>
             Reset Filter
           </button>
-        </section>
+        </Section>
       ) : (
         <Create onAdd={todos.set.add} className="p-6" />
       )}

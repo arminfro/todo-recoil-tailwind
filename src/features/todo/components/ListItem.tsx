@@ -1,9 +1,9 @@
 import { ReactElement, useCallback, useState } from 'react';
-import { useHover } from 'react-use';
 import Edit, { ControlledFieldProps } from '@/features/todo/components/Edit';
 import ListItemControl from '@/features/todo/components/ListItemControl';
 import { GuardedUseTodo, useTodo } from '@/features/todo/hooks/useTodo';
 import useIsMobile from '@/hooks/useIsMobile';
+import List from '@/components/containers/List';
 
 interface GuardProps {
   id: number;
@@ -16,13 +16,13 @@ interface Props {
 export default function Guard({ id }: GuardProps): ReactElement {
   const todo = useTodo(id);
   if (todo && todo.get) {
-    return <ListItem todo={todo as GuardedUseTodo} />;
+    return <TodoListItem todo={todo as GuardedUseTodo} />;
   } else {
     return <p>not found</p>;
   }
 }
 
-function ListItem({ todo }: Props): ReactElement {
+function TodoListItem({ todo }: Props): ReactElement {
   const [editValue, setEditValue] = useState({
     title: todo.get.title,
     description: todo.get.description,
@@ -51,51 +51,55 @@ function ListItem({ todo }: Props): ReactElement {
     editValue.title !== todo.get.title ||
     editValue.description !== todo.get.description;
 
-  return useHover((hovered) => (
-    <li className="relative px-1 py-4 border-b-2 border-l-2 border-gray-100 border-solid rounded-bl-lg dark:border-black dark:hover:border-indigo-200 lg:py-6 xl:py-8 md:my-4 sm:my-0 hover:border-opacity-70 group hover:border-indigo-700">
-      {isEdit ? (
+  return (
+    <List.Item>
+      {(hovered) => (
         <>
-          <h2>
-            <Edit value={todo.get.title} onInputChange={onTitleChange}>
-              {(fieldProps: ControlledFieldProps) => (
-                <input {...fieldProps} className={`${commonClasses}`} />
-              )}
-            </Edit>
-          </h2>
-          <Edit
-            value={todo.get.description}
-            doAutoExpand
-            onInputChange={onDescriptionChange}
-          >
-            {(fieldProps: ControlledFieldProps) => (
-              <textarea {...fieldProps} className={`${commonClasses}`} />
-            )}
-          </Edit>
-        </>
-      ) : (
-        <>
-          <h3 className="w-11/12 uppercase truncate group-hover:text-indigo-700 dark:group-hover:text-indigo-300 dark:text-indigo-200 group-hover:underline">
-            {todo.get.title}
-          </h3>
-          <p
-            className={`w-11/12 dark:text-indigo-100 text-gray-800 text-justify font-light group-hover:font-medium md:mr-10 ${
-              todo.get.completed && 'line-through'
-            }`}
-          >
-            {todo.get.description}
-          </p>
+          {isEdit ? (
+            <>
+              <h2>
+                <Edit value={todo.get.title} onInputChange={onTitleChange}>
+                  {(fieldProps: ControlledFieldProps) => (
+                    <input {...fieldProps} className={`${commonClasses}`} />
+                  )}
+                </Edit>
+              </h2>
+              <Edit
+                value={todo.get.description}
+                doAutoExpand
+                onInputChange={onDescriptionChange}
+              >
+                {(fieldProps: ControlledFieldProps) => (
+                  <textarea {...fieldProps} className={`${commonClasses}`} />
+                )}
+              </Edit>
+            </>
+          ) : (
+            <>
+              <h3 className="w-11/12 uppercase truncate group-hover:text-indigo-700 dark:group-hover:text-indigo-300 dark:text-indigo-200 group-hover:underline">
+                {todo.get.title}
+              </h3>
+              <p
+                className={`w-11/12 dark:text-indigo-100 text-gray-800 text-justify font-light group-hover:font-medium md:mr-10 ${
+                  todo.get.completed && 'line-through'
+                }`}
+              >
+                {todo.get.description}
+              </p>
+            </>
+          )}
+          {(hovered || isMobile) && (
+            <ListItemControl
+              isEdit={isEdit}
+              setIsEdit={setIsEdit}
+              hasChanges={hasChanges}
+              todo={todo}
+              onSaveEdit={onSaveEdit}
+              onDuplicate={todo.set.duplicate}
+            />
+          )}
         </>
       )}
-      {(hovered || isMobile) && (
-        <ListItemControl
-          isEdit={isEdit}
-          setIsEdit={setIsEdit}
-          hasChanges={hasChanges}
-          todo={todo}
-          onSaveEdit={onSaveEdit}
-          onDuplicate={todo.set.duplicate}
-        />
-      )}
-    </li>
-  ))[0];
+    </List.Item>
+  );
 }

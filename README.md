@@ -13,6 +13,12 @@ Project structure is aligned with [bulletproof-react](https://github.com/alan220
 
 `eslint-plugin-react-perf` is used to ensure identity of reference types are stable when depending on it.
 
+## How to start
+
+- `yarn start` for starting webserver
+- `yarn cypress:open` for starting integration tests
+- `yarn storybook` for starting storybook
+
 ## Docs
 
 - [`recoil`](https://recoiljs.org/docs)
