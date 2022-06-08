@@ -8,15 +8,22 @@ export default {
 
 const Template: ComponentStory<typeof Modal> = (args) => {
   const [showModal, setShowModal] = useState(args.isOpen);
+  const onOpen = useCallback(() => setShowModal(true), []);
+
   return (
-    <Modal
-      {...args}
-      isOpen={showModal}
-      onClose={useCallback(() => {
-        args.onClose();
-        setShowModal(false);
-      }, [args])}
-    />
+    <>
+      <Modal
+        {...args}
+        isOpen={showModal}
+        onClose={useCallback(() => {
+          args.onClose();
+          setShowModal(false);
+        }, [args])}
+      />
+      <button className="btn-primary" onClick={onOpen}>
+        Open
+      </button>
+    </>
   );
 };
 
